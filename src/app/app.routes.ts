@@ -16,7 +16,7 @@ export const routes: Routes = [
     { path: 'app-navbar', component: NavbarComponent },
     { path: 'app-footer', component: FooterComponent },
     { path: 'app-login', component: LoginComponent },
-    { path: 'app-resigter', component: RegisterComponent },
+    { path: 'app-register', component: RegisterComponent },
     { path: 'app-contact', component: ContactComponent },
     { path: 'app-chat', component: ChatComponent },
     { path: 'app-residence-detail', component: ResidenceDetailComponent },
