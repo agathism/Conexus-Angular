@@ -23,4 +23,5 @@ export const routes: Routes = [
     { path: 'app-profile', component: ProfileComponent },
     { path: 'app-chat-detail', component: ChatDetailComponent },
     { path: 'app-residence-search', component: ResidenceSearchComponent },
+    { path: '', redirectTo: 'app-home', pathMatch: 'full'}
 ];

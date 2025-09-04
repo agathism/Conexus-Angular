@@ -1,1 +1,141 @@
-<p>home works!</p>
+<header class="md:flex md:flex-row md:justify-around max-sm:my-8 md:mt-8 md:mx-6">
+    <div class="flex flex-col items-start max-6-xl py-4 max-sm:p-4">
+        <h1 class="text-xl font-bold text-left">BIENVENUE</h1>
+        <h2 class="text-lg md:text-md font-semibold text-left w-full mt-2">Vivez l’expérience du coliving autrement</h2>
+        <p class="text-black text-md md:text-xs w-sm text-left my-2 max-sm:w-xs md:w-xs">
+            Rejoignez une communauté dynamique où l’on partage bien plus qu’un logement.
+            Nos espaces de coliving sont pensés pour favoriser les rencontres, la collaboration
+            et la convivialité. Profitez de lieux modernes et chaleureux, où chaque journée
+            est une nouvelle opportunité de créer des souvenirs et de tisser des liens durables.
+        </p>
+        <div class="flex gap-3 mt-4">
+            <ul class="flex flex-row gap-4">
+                <li>
+                    <a routerLink="/app-register" class="inline-block text-sm md:text-xs w-24 h-6 rounded-2xl bg-[#E88A68] text-white relative overflow-hidden group z-10 duration-1000 leading-6 text-center">
+                    <span class="absolute bg-[#dc6e47] w-36 h-36 rounded-md group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
+                    <span class="absolute bg-[#df724b] w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
+                    S'inscrire
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/app-residence-search" class="inline-block text-sm md:text-xs w-44 h-6 rounded-2xl bg-[#b9f4a5] text-white relative overflow-hidden group z-10 duration-1000 leading-6 text-center">
+                    <span class="absolute bg-[#8dc17b] w-50 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
+                    <span class="absolute bg-[#80b76d] w-50 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
+                    Découvrir les espaces
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="flex flex-col sm:flex-row gap-4 mt-4 h-68 max-sm:hidden">
+        <img src="image/picture-right.jpg" alt="colivers en train de travailler ensemble" class="w-md rounded-lg shadow-md object-cover"/>
+        <img src="image/picture-left.jpg" alt="groupe de colivers partageant un moment convivial" class="w-fit rounded-lg shadow-md object-cover"/>
+    </div> 
+</header>
+<main class="md:mx-6">
+    <!-- div principal -->
+    <div class="flex flex-col my-8 mx-auto py-4 max-sm:p-4">
+        <!-- div villes et boutons -->
+        <div class="flex flex-col md:flex-row space-y-4 mt-2 md:justify-between md:items-center">
+            <hgroup>
+                <h2 class="text-md font-semibold text-left w-full">Les villes où nous sommes présents</h2>  
+                <span>
+                    <p class="text-sm md:text-xs">Trouvez des résidences dans des dizaines de villes</p>
+                </span>
+            </hgroup>
+            <ul class="flex flex-row bg-[#b9f4a5] w-38 h-6 rounded-2xl gap-2">
+                <li>
+                    <a routerLink="/app-residence-search" class="inline-block text-sm w-38 h-6 rounded-2xl bg-[#b9f4a5] text-md md:text-xs text-white relative overflow-hidden group z-10 duration-1000 leading-6 text-center">
+                    <span class="absolute bg-[#8dc17b] w-64 h-36 rounded-full group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
+                    <span class="absolute bg-[#80b76d] w-64 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
+                    Tout afficher
+                </a>
+            </li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-right-icon lucide-arrow-right"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </ul>
+        </div>
+        <!-- fin -->
+        <!-- div photo -->
+        <div class="mt-6 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-4">
+            <div class="relative h-[200px] max-sm:my-2 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+            <div class="relative h-[200px] max-sm:my-4 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+            <div class="relative h-[200px] max-sm:my-4 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+            <div class="relative h-[200px] max-sm:my-4 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+            <div class="relative h-[200px] max-sm:my-4 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+            <div class="relative h-[200px] max-sm:my-4 rounded-2xl overflow-hidden shadow-lg">
+                <img src="image/picture-left.jpg" alt="paris" class="w-full object-cover"/>
+                <h4 class="absolute top-6 right-6 text-white text-lg md:text-sm font-semibold drop-shadow-lg">
+                    A voir
+                </h4>
+                <div class="absolute bottom-6 left-6 bg-[#b9f4a5] text-white px-4 py-2 rounded-full text-xs md:text-xs font-medium shadow">
+                    A voir
+                </div>
+            </div>
+         </div>
+        <!-- fin div photo -->
+         <!-- div services -->
+        <div class="flex flex-col md:flex-row my-8">
+            <hgroup>
+                <h2 class="text-md font-semibold text-left w-full mt-2">Pourquoi nous faire confiance?</h2>  
+                <span>
+                    <p class="text-sm md:text-xs">Une expérience de coliving pensée pour votre bien-être et votre épanouissement personnel.</p>
+                </span>
+            </hgroup>
+        </div>
+        <div class="mt-6 md:grid md:grid-cols-3 md:grid-rows-2 md:gap-4">
+            @for (service of services; track service.id) {
+            <div class="flex flex-col items-center justify-center h-[200px] bg-[#cff4c2] max-sm:my-2 rounded-2xl overflow-hidden shadow-lg">
+                <img src="{{ service.iconUrl }}" alt="" class="w-16 h-16">
+                <h4 class="top-6 right-6 text-black text-md md:text-sm font-semibold drop-shadow-lg">
+                    {{ service.name }}
+                </h4>
+                <div class="text-stone-800 px-4 py-2 text-xs md:text-xs font-normal">
+                    {{ service.description }}
+                </div>
+            </div>
+        }
+        </div>
+        <!-- fin div services -->
+    </div>
+    <!-- fin div principal -->
+</main>

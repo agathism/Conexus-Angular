@@ -2,7 +2,7 @@
     <div class="my-10 relative flex flex-col max-sm:p-10 md:max-w-xs rounded-md text-black bg-white">
         <div class="text-xl font-bold mb-2 text-black text-center">Bienvenue sur <span class="text-[#E88A68]">Conexus</span></div>
         <div class="text-sm font-base mb-4 text-center text-black">Connectez-vous!</div>
-        <form class="flex flex-col gap-3">
+        <form [formGroup]="loginForm" (ngSubmit)="monFormEstSoumis()" class="flex flex-col gap-3">
             <div class="block relative"> 
                 <label for="email" class="block text-gray-700 cursor-text text-sm leading-[140%] font-base mb-2">Email</label>
                 <input 
@@ -14,7 +14,7 @@
             <div class="block relative mb-4"> 
                 <label for="password" class="block text-gray-700 cursor-text text-sm leading-[140%] font-base mb-2">Mot de passe</label>
                 <input 
-                    type="text" 
+                    type="password" 
                     id="password"
                     formControlName="password" 
                     class="rounded border border-gray-200 text-sm w-full font-base leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0">
