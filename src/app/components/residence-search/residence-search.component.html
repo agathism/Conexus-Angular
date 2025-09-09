@@ -1,1 +1,154 @@
-<p>residence-search works!</p>
+<div class="min-h-screen">
+  <!-- Header de recherche -->
+  <div class="shadow-sm border-b">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          Trouvez votre résidence idéale
+        </h1>
+        <p class="text-gray-600">
+          Découvrez des espaces de vie partagés dans toute l'Europe
+        </p>
+      </div>
+
+      <!-- Barre de recherche principale -->
+      <div class="max-w-6xl mx-auto">
+        <div class="flex flex-col lg:flex-row gap-4 items-center md:items-end">
+          <!-- Localisation -->
+          <div>
+            <label class="block text-md font-medium text-gray-900 mb-2">
+              Ville
+            </label>
+            <div class="relative">
+              <input
+                type="text"
+                placeholder="Lyon..."
+                class="w-full text-neutral-600 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+        <!-- Prix -->
+          <div>
+            <label class="block text-md font-medium text-gray-900 mb-2">Prix mensuel (€)</label>
+            <div class="flex gap-2">
+              <input
+                type="number"
+                placeholder="850"
+                class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
+            </div>
+          </div>
+
+        <!-- Surface -->
+          <div>
+            <label class="block text-md font-medium text-gray-900 mb-2">Surface (m²)</label>
+            <div class="flex gap-2">
+              <input
+                type="number"
+                placeholder="110"
+                class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
+            </div>
+          </div>
+
+        <!-- Date d'entrée -->
+          <div>
+            <label class="block text-md font-medium text-gray-900 mb-2">
+              Date d'entrée
+            </label>
+            <input
+              type="date"
+              class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
+          </div> 
+
+        <!-- Boutons d'action -->
+          <div class="flex gap-3">
+            <button
+              class="px-8 py-3 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
+              Rechercher
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Résultats -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    
+    <!-- Grille des résidences -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (residence of residences; track residence.id) {
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden group cursor-pointer">
+        <!-- Image -->
+        <div class="relative h-48 overflow-hidden">
+          <img
+            src="" alt=""
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+        </div>
+
+        <!-- Contenu -->
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-[#b9f4a5] transition-colors">
+             {{ residence.title }}
+            </h3>
+            <div class="text-right">
+              <div class="text-2xl font-bold text-[#b9f4a5]">{{residence.monthlyPrice}}€</div>
+              <div class="text-xs text-gray-600">Par mois</div>
+            </div>
+          </div>
+
+          <p class="text-gray-800 text-md mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2">
+              <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+            {{residence.city.name }}
+          </p>
+
+          <p class="text-gray-800 text-md mb-3 flex items-center">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="black" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            {{residence.address }}
+          </p>
+
+          <!-- Informations clés -->
+          <div class="flex justify-between items-center mb-4 text-md text-gray-800">
+            <span class="flex items-center">
+              <svg class="h-4 w-4 mr-1" fill="none" stroke="black" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+              </svg>
+              {{residence.surface}} (m²)
+            </span>
+            <span class="flex items-center">
+              {{residence.amountShowers}} 
+              <img src="{{residence.iconShower}}" alt="Shower" class="h-6 w-8"/>
+            </span>
+          </div>
+          <!-- Bouton d'action -->
+          <a href="app-residence-detail:id" class="w-full bg-[#b9f4a5] text-black py-2 px-4 rounded-lg hover:bg-[#b9f4a5] transition-colors">
+            Voir les détails
+          </a>
+        </div>
+      </div>
+    }
+    </div>
+
+    <!-- Message si aucun résultat -->
+    <div class="text-center py-12">
+      <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+      </svg>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune résidence trouvée</h3>
+      <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
+      <button
+        class="px-6 py-2 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
+        Réinitialiser les filtres
+      </button>
+    </div>
+  </div>
+</div>

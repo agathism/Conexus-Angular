@@ -6,6 +6,7 @@ import { ServiceService } from '../../services/service.service';
 import { TestimoniesService } from '../../services/testimonies.service';
 import Service from '../../models/service.interface';
 import Testimony from '../../models/testimony.interface';
+import City from '../../models/city.interface';
 
 @Component({
   selector: 'app-home',
@@ -15,7 +16,8 @@ import Testimony from '../../models/testimony.interface';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
-  cities: CitiesService = inject(CitiesService);
+  private citiesService = inject(CitiesService);
+  cities: City[] = [];
   private serviceService = inject(ServiceService);
   services: Service[] = [];
   private testimonyService = inject(TestimoniesService);
@@ -24,7 +26,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.loadServices();
     this.loadTestimonies();
-    // this.loadCities(); // A faire aussi
+    this.loadCities(); 
   }
 
   private loadServices(): void {
@@ -51,14 +53,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // private loadCities(): void {
-  //   this.cities.getCities().subscribe({
-  //     next: (data) => {
-  //       console.log('✅ Villes chargées:', data);
-  //     },
-  //     error: (err) => {
-  //       console.error('❌ Erreur Cities API:', err);
-  //     }
-  //   });
-  // }
+  private loadCities(): void {
+    this.citiesService.getCities().subscribe({
+      next: (data) => {
+        this.cities = data;
+        console.log('✅ Villes chargées:', this.cities);
+      },
+      error: (err) => {
+        console.error('❌ Erreur Cities API:', err);
+      }
+    });
+  }
 }
