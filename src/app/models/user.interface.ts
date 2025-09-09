@@ -1,4 +1,4 @@
-import Conversation from "./conversation.interface"
+import Message from "./message.interface"
 import Reservation from "./reservation.interface"
 import Residence from "./residence.interface"
 import Testimony from "./testimony.interface"
@@ -14,6 +14,6 @@ export default interface User {
   residences: Residence
   testimonies: Testimony
   reservations: Reservation
-  conversations: Conversation
+  messages: Message
   profilePicture: string
 }

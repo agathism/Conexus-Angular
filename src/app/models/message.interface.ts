@@ -1,10 +1,10 @@
-import Conversation from "./conversation.interface"
 import User from "./user.interface"
 
 export default interface Message {
   id: number
   content: string
-  author: User
-  conversation: Conversation
+  sender: User
+  receiver: User
   createdAt: string
+  updatedAt: string
 }

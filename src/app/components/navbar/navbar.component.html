@@ -15,13 +15,16 @@
                     <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]"> 
                     <a routerLink="/app-chat">Mes conversations</a>
                     </li>
+                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]"> 
+                    <a routerLink="/app-reservations">Mes réservations</a>
+                    </li>
                     <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
                     <a routerLink="/app-profile">Mon profil</a>
                     <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68] hover:cursor-pointer">
                     <a (click)="logout()" class="inline-block text-sm md:text-base w-28 h-6 rounded-2xl bg-[#E88A68] text-white relative overflow-hidden group z-10 hover:text-white duration-1000 leading-6 text-center">
                         <span class="absolute bg-[#dc6e47] w-36 h-36 rounded-sm group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
                         <span class="absolute bg-[#df724b] w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
-                        Déconnexion
+                    Déconnexion
                     </a>
                     </li>
                 } @else {

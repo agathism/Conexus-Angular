@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ContactsService } from '../../services/contacts.service';
+import { ContactsService } from '../../services/contacts/contacts.service';
 
 @Component({
   selector: 'app-contact',

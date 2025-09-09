@@ -1,9 +1,9 @@
 import { Component, inject, OnInit} from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CitiesService } from '../../services/cities.service';
-import { ServiceService } from '../../services/service.service';
-import { TestimoniesService } from '../../services/testimonies.service';
+import { CitiesService } from '../../services/cities/cities.service';
+import { ServiceService } from '../../services/services/service.service';
+import { TestimoniesService } from '../../services/testimonies/testimonies.service';
 import Service from '../../models/service.interface';
 import Testimony from '../../models/testimony.interface';
 import City from '../../models/city.interface';

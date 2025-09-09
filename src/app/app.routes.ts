@@ -8,8 +8,8 @@ import { ChatComponent } from './components/chat/chat.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { ChatDetailComponent } from './components/chat-detail/chat-detail.component';
 import { ResidenceSearchComponent } from './components/residence-search/residence-search.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 
 export const routes: Routes = [
     { path: 'app-home', component: HomeComponent },
@@ -21,7 +21,7 @@ export const routes: Routes = [
     { path: 'app-chat', component: ChatComponent },
     { path: 'app-residence-detail', component: ResidenceDetailComponent },
     { path: 'app-profile', component: ProfileComponent },
-    { path: 'app-chat-detail', component: ChatDetailComponent },
     { path: 'app-residence-search', component: ResidenceSearchComponent },
+    { path: 'app-reservations', component: ReservationsComponent },
     { path: '', redirectTo: 'app-home', pathMatch: 'full'}
 ];

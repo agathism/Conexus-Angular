@@ -1,14 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ResidencesService } from '../../services/residences.service';
+import { ResidencesService } from '../../services/residences/residences.service';
 import Residence from '../../models/residence.interface';
 import { CommonModule } from '@angular/common';
-import { ServiceService } from '../../services/service.service';
+import { ServiceService } from '../../services/services/service.service';
 import Service from '../../models/service.interface';
-import { TestimoniesService } from '../../services/testimonies.service';
+import { TestimoniesService } from '../../services/testimonies/testimonies.service';
 import Testimony from '../../models/testimony.interface';
-import { RoomsService } from '../../services/rooms.service';
+import { RoomsService } from '../../services/rooms/rooms.service';
 import Room from '../../models/room.interface';
-import { ConveniencesService } from '../../services/conveniences.service';
+import { ConveniencesService } from '../../services/conveniences/conveniences.service';
 import Convenience from '../../models/convenience.interface';
 
 @Component({
@@ -31,7 +31,7 @@ export class ResidenceDetailComponent implements OnInit {
   conveniences: Convenience[] = [];
 
     ngOnInit(): void {
-    // this.loadResidence(889); 
+    this.loadResidence(889); 
     this.loadServices();
     this.loadTestimonies();
     this.loadRooms();
@@ -39,17 +39,17 @@ export class ResidenceDetailComponent implements OnInit {
     // this.loadCities(); // A faire aussi
   }
 
-  // private loadResidence(id: number): void {
-  //   this.residencesService.getResidenceById(id).subscribe({
-  //   next: (data) => { 
-  //     this.residences = [data];
-  //     console.log('✅ Résidence chargée:', this.residences);
-  //   },
-  //     error: (err) => {
-  //       console.error('❌ Erreur Services API:', err);
-  //     }
-  //   });
-  // }
+  private loadResidence(id: number): void {
+    this.residencesService.getResidenceById(id).subscribe({
+    next: (data) => { 
+      this.residences = [data];
+      console.log('✅ Résidence chargée:', this.residences);
+    },
+      error: (err) => {
+        console.error('❌ Erreur Services API:', err);
+      }
+    });
+  }
 
   private loadServices(): void {
     this.serviceService.getServices().subscribe({

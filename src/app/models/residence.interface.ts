@@ -16,5 +16,6 @@ export default interface Residence {
   owner: User
   residenceImages: ResidenceImage
   iconShower: string
+  imageUrl: string
   testimonies: Testimony
 }

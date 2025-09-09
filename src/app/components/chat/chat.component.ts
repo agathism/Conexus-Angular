@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
-import Conversation from '../../models/conversation.interface';
-import { ConversationsService } from '../../services/conversations.service';
-import { MessagesService } from '../../services/messages.service';
+import { MessagesService } from '../../services/messages/messages.service';
+import Message from '../../models/message.interface';
 
 @Component({
   selector: 'app-chat',
@@ -11,21 +10,19 @@ import { MessagesService } from '../../services/messages.service';
   styleUrl: './chat.component.css'
 })
 export class ChatComponent {
-  private conversationsService = inject(ConversationsService);
-  conversations: Conversation[] = [];
   private messagesService = inject(MessagesService);
-  messages: Conversation[] = [];
+  messages: Message[] = [];
 
   ngOnInit(): void {
-    this.loadConversations();
+    this.loadMessages();
     // this.loadMessages();
   }
 
-  private loadConversations(): void {
-    this.conversationsService.getConversations().subscribe({
+  private loadMessages(): void {
+    this.messagesService.getMessages().subscribe({
       next: (data) => {
-        this.conversations = data;
-        console.log('✅ Conversations chargées:', this.conversations);
+        this.messages = data;
+        console.log('✅ Conversations chargées:', this.messages);
       },
       error: (err) => {
         console.error('❌ Erreur Conversations API:', err);

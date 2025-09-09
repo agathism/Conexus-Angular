@@ -13,6 +13,7 @@
 
       <!-- Barre de recherche principale -->
       <div class="max-w-6xl mx-auto">
+        <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
         <div class="flex flex-col lg:flex-row gap-4 items-center md:items-end">
           <!-- Localisation -->
           <div>
@@ -21,7 +22,9 @@
             </label>
             <div class="relative">
               <input
+                id="city"
                 type="text"
+                formControlName="city"
                 placeholder="Lyon..."
                 class="w-full text-neutral-600 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
               <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -38,7 +41,9 @@
             <label class="block text-md font-medium text-gray-900 mb-2">Prix mensuel (€)</label>
             <div class="flex gap-2">
               <input
+                id="monthlyPrice"
                 type="number"
+                formControlName="monthlyPrice"
                 placeholder="850"
                 class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
             </div>
@@ -49,7 +54,9 @@
             <label class="block text-md font-medium text-gray-900 mb-2">Surface (m²)</label>
             <div class="flex gap-2">
               <input
+                id="surface"
                 type="number"
+                formControlName="surface"
                 placeholder="110"
                 class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
             </div>
@@ -61,18 +68,21 @@
               Date d'entrée
             </label>
             <input
+              id="createdAt"
               type="date"
+              formControlName="createdAt"
               class="w-full text-neutral-600 pl-4 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
           </div> 
 
         <!-- Boutons d'action -->
           <div class="flex gap-3">
-            <button
+            <button type="submit"
               class="px-8 py-3 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
               Rechercher
             </button>
           </div>
         </div>
+        </form>
       </div>
     </div>
   </div>
@@ -87,7 +97,7 @@
         <!-- Image -->
         <div class="relative h-48 overflow-hidden">
           <img
-            src="" alt=""
+            src="{{residence.imageUrl}}" alt=""
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
         </div>
 
@@ -130,7 +140,7 @@
             </span>
           </div>
           <!-- Bouton d'action -->
-          <a href="app-residence-detail:id" class="w-full bg-[#b9f4a5] text-black py-2 px-4 rounded-lg hover:bg-[#b9f4a5] transition-colors">
+          <a routerLink="app-residence-detail" class="w-full bg-[#b9f4a5] text-black py-2 px-4 rounded-lg hover:bg-[#b9f4a5] transition-colors">
             Voir les détails
           </a>
         </div>
@@ -143,9 +153,9 @@
       <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
       </svg>
-      <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune résidence trouvée</h3>
+      <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune résidence trouvée ?</h3>
       <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
-      <button
+      <button (ngSubmit)="onReset()"
         class="px-6 py-2 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
         Réinitialiser les filtres
       </button>
