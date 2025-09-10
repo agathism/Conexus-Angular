@@ -29,7 +29,7 @@ export class RegisterComponent {
       password: ['', [Validators.required, Validators.minLength(6)]], // Validation de la longueur du mot de passe
       userGenre: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
-      profilePicture: [''],
+      profilePicture: ['', [Validators.required]]
     });
   }
 
@@ -37,24 +37,25 @@ export class RegisterComponent {
   monFormEstSoumis() {
     if (this.registerForm.valid) {
       // Récupère toutes les données du formulaire
-      const userData = {
+      const userDatas = {
         name: this.registerForm.value.name,        
         email: this.registerForm.value.email,
         password: this.registerForm.value.password,
         userGenre: this.registerForm.value.userGenre,
         birthDate: this.registerForm.value.birthDate,
-        profilePicture: this.registerForm.value.avatar
+        profilePicture: this.registerForm.value.profilePicture
       };
 
       // Appel du service pour l'inscription de l'utilisateur
-      this.userService.register(userData).subscribe({
+      this.userService.register(userDatas).subscribe({
         next: (response: any) => {
           console.log('Inscription réussie !', response);
-          
           // Connexion automatique après inscription
-          this.loginAfterRegister(userData.email, userData.password);
+          this.loginAfterRegister(userDatas.email, userDatas.password);
           // Message de succès 
           this.errorMessage = 'Inscription réussie ! Vous pouvez vous connecter.';
+          // Redirection vers le profil
+          this.router.navigate(['/app-profile']);
         },
         error: (err: any) => {
           console.error('Erreur inscription:', err);
@@ -67,7 +68,7 @@ export class RegisterComponent {
         }
       });
     } else {
-      // Affichage message si le formulaire n'est pas valide
+      // Affichage du message si le formulaire n'est pas valide
       this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires.';
     }
   }

@@ -4,5 +4,5 @@ export default interface UserRegistration {
   password: string;
   userGenre: string;
   birthDate: string;
-  avatar?: string; 
+  profilePicture: string;
 }

@@ -55,16 +55,21 @@ export class ResidencesService{
    */
   private buildSearchParams(filters: SearchFilters): HttpParams {
     let params = new HttpParams();
-    
+
     Object.entries(filters).forEach(([key, value]) => {
       if (this.isValidFilterValue(value)) {
-        // Conversion en string pour les paramètres HTTP
-        params = params.set(key, value.toString());
+        // si le champ est "city", on le transforme en "city.name"
+        if (key === 'city') {
+          params = params.set('city.name', value.toString());
+        } else {
+          params = params.set(key, value.toString());
+        }
       }
     });
 
     return params;
   }
+
 
   /**
    * Vérifie si une valeur de filtre est valide

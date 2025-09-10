@@ -27,6 +27,7 @@ export class ResidenceSearchComponent implements OnInit {
   // États de l'application
   isLoading = false;
   errorMessage = '';
+  resultCount = 0;
 
   constructor() {
     this.searchForm = this.formBuilder.group({
@@ -83,7 +84,8 @@ export class ResidenceSearchComponent implements OnInit {
       next: (data: Residence[]) => {
         this.residences = data;
         this.isLoading = false;
-        console.log('✅ Recherche effectuée:', data.length, 'résidence(s) trouvée(s)');
+        this.resultCount = data.length;
+        console.log( this.resultCount, 'résidence(s) trouvée(s)');
       },
       error: (err) => {
         this.handleError('Erreur lors de la recherche', err);

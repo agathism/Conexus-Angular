@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { ResidenceSearchComponent } from './components/residence-search/residence-search.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
+import { ResidenceCreateComponent } from './components/residence-create/residence-create.component';
 
 export const routes: Routes = [
     { path: 'app-home', component: HomeComponent },
@@ -22,6 +23,7 @@ export const routes: Routes = [
     { path: 'app-residence-detail', component: ResidenceDetailComponent },
     { path: 'app-profile', component: ProfileComponent },
     { path: 'app-residence-search', component: ResidenceSearchComponent },
+    { path: 'app-residence-create', component: ResidenceCreateComponent },
     { path: 'app-reservations', component: ReservationsComponent },
     { path: '', redirectTo: 'app-home', pathMatch: 'full'}
 ];

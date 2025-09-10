@@ -1,6 +1,3 @@
-import City from "./city.interface"
-import ResidenceImage from "./residenceImage.interface"
-import Testimony from "./testimony.interface"
 import User from "./user.interface"
 
 export default interface Residence {
@@ -12,10 +9,7 @@ export default interface Residence {
   monthlyPrice: number
   surface: number
   createdAt: string
-  city: City
   owner: User
-  residenceImages: ResidenceImage
   iconShower: string
   imageUrl: string
-  testimonies: Testimony
 }

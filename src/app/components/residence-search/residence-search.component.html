@@ -21,18 +21,31 @@
               Ville
             </label>
             <div class="relative">
-              <input
+              <select
                 id="city"
                 type="text"
                 formControlName="city"
                 placeholder="Lyon..."
                 class="w-full text-neutral-600 pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#b9f4a5] focus:border-transparent">
-              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-                </svg>
-              </div>
+                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                  </svg>
+                </div>
+                <option value="" class="text-grey-700">Sélectionnez la ville</option>
+                <option value="Paris" class="text-black">Paris</option>
+                <option value="Lyon" class="text-black">Lyon</option>
+                <option value="Berlin" class="text-black">Berlin</option>
+                <option value="Madrid" class="text-black">Madrid</option>
+                <option value="Amsterdam" class="text-black">Amsterdam</option>
+                <option value="Londres" class="text-black">Londres</option>
+                <option value="Barcelone" class="text-black">Barcelone</option>
+                <option value="Vienne" class="text-black">Vienne</option>
+                <option value="Prague" class="text-black">Prague</option>
+                <option value="Lisbonne" class="text-black">Lisbonne</option>
+                <option value="Budapest" class="text-black">Budapest</option>
+              </select>
             </div>
           </div>
 
@@ -83,6 +96,13 @@
           </div>
         </div>
         </form>
+
+        <!-- Message des résultats -->
+        <div class="text-center pt-6">
+          <p>
+            Vous avez {{ resultCount }} résultats.
+          </p>
+        </div>
       </div>
     </div>
   </div>
@@ -146,19 +166,6 @@
         </div>
       </div>
     }
-    </div>
-
-    <!-- Message si aucun résultat -->
-    <div class="text-center py-12">
-      <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-      </svg>
-      <h3 class="text-lg font-medium text-gray-900 mb-2">Aucune résidence trouvée ?</h3>
-      <p class="text-gray-600 mb-4">Essayez de modifier vos critères de recherche</p>
-      <button (ngSubmit)="onReset()"
-        class="px-6 py-2 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
-        Réinitialiser les filtres
-      </button>
     </div>
   </div>
 </div>

@@ -10,23 +10,30 @@ import { Router } from '@angular/router';
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
+
 export class ProfileComponent {
   private userService = inject(UserService);
   private router = inject(Router);
   user?: User;
 
   ngOnInit() {
-  this.userService.currentUser$.subscribe(user => {
-    if (user) {
-      this.user = user;
-      console.log("✅ Utilisateur connecté:", user)
-      if (this.router.url === '/app-login') {
-        this.router.navigate(['/app-profile']); // ou la page d’accueil
+    console.log('🔍 Initialisation du composant profile');
+    console.log('📦 Token dans localStorage:', this.userService.getToken());
+    console.log('👤 User dans localStorage:', this.userService.getUser());
+    
+    this.userService.currentUser$.subscribe(user => {
+      console.log('🔄 Changement d\'état utilisateur:', user);
+      
+      if (user) {
+        this.user = user;
+        console.log("✅ Utilisateur connecté:", user);
+        if (this.router.url === '/app-login') {
+          this.router.navigate(['/app-profile']);
+        }
+      } else {
+        console.log("ℹ️ Aucun utilisateur connecté");
+        this.router.navigate(['/app-login']);
       }
-    } else {
-      console.log("ℹ️ Aucun utilisateur connecté");
-      this.router.navigate(['/app-login']);
-    }
-  });
-}
+    });
+  }
 }
