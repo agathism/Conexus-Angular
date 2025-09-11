@@ -20,7 +20,7 @@ export const routes: Routes = [
     { path: 'app-register', component: RegisterComponent },
     { path: 'app-contact', component: ContactComponent },
     { path: 'app-chat', component: ChatComponent },
-    { path: 'app-residence-detail', component: ResidenceDetailComponent },
+    { path: 'app-residence-detail/:id', component: ResidenceDetailComponent },
     { path: 'app-profile', component: ProfileComponent },
     { path: 'app-residence-search', component: ResidenceSearchComponent },
     { path: 'app-residence-create', component: ResidenceCreateComponent },

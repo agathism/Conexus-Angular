@@ -1,96 +1,96 @@
 <header class="flex flex-col lg:flex-row lg:justify-between lg:items-start p-4 my-10 md:p-8 gap-6">
-        <div class="flex flex-col max-w-2xl">
-            <h1 class="text-4xl font-bold text-left">BIENVENUE</h1>
-            <h2 class="text-xl font-semibold text-left w-full mt-2">Vivez l'expérience du coliving autrement</h2>
-            <p class="text-black text-md leading-relaxed my-4 max-w-xl">
-                Chez Conexus, nous créons bien plus que des espaces de vie partagés. Nous façonnons des communautés authentiques où chaque résident trouve sa place dans un écosystème bienveillant et inspirant. Nos résidences allient intimité personnelle et convivialité collective, offrant des environnements modernes et fonctionnels pensés pour enrichir votre quotidien.
-                Rejoignez une communauté qui valorise le partage, l'entraide et l'épanouissement personnel dans un cadre de vie exceptionnel.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-3 mt-4">
-                <a routerLink="/app-register" class="inline-flex items-center justify-center text-sm px-6 py-2 rounded-2xl bg-[#f0ae97] text-black hover:bg-[#dc6e47] transition-colors duration-300">
-                    S'inscrire
-                </a>
-                <a routerLink="/app-residence-search" class="inline-flex items-center justify-center text-sm px-6 py-2 rounded-2xl bg-[#b9f4a5] text-black hover:bg-[#8dc17b] transition-colors duration-300">
-                    Découvrir les espaces
-                </a>
-            </div>
+    <div class="flex flex-col max-w-2xl">
+        <h1 class="text-4xl font-bold text-left">BIENVENUE</h1>
+        <h2 class="text-xl font-semibold text-left w-full mt-2">Vivez l'expérience du coliving autrement</h2>
+        <p class="text-black text-md leading-relaxed my-4 max-w-xl">
+            Chez Conexus, nous créons bien plus que des espaces de vie partagés. Nous façonnons des communautés authentiques où chaque résident trouve sa place dans un écosystème bienveillant et inspirant. Nos résidences allient intimité personnelle et convivialité collective, offrant des environnements modernes et fonctionnels pensés pour enrichir votre quotidien.
+            Rejoignez une communauté qui valorise le partage, l'entraide et l'épanouissement personnel dans un cadre de vie exceptionnel.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3 mt-4">
+            <a routerLink="/app-register" class="inline-flex items-center justify-center text-sm px-6 py-2 rounded-2xl bg-[#f0ae97] text-black hover:bg-[#dc6e47] transition-colors duration-300">
+                S'inscrire
+            </a>
+            <a routerLink="/app-residence-search" class="inline-flex items-center justify-center text-sm px-6 py-2 rounded-2xl bg-[#b9f4a5] text-black hover:bg-[#8dc17b] transition-colors duration-300">
+                Découvrir les espaces
+            </a>
         </div>
+    </div>
         <div class="hidden lg:block flex-1 max-w-2xl">
             <img src="image/picture-right.jpg" alt="colivers en train de travailler ensemble" class="w-full h-80 rounded-2xl shadow-lg object-cover"/>
         </div>  
-    </header>
+</header>
 
-    <main class="px-4 md:px-8">
-        <!-- Section villes -->
-        <section class="my-24">
-            <div class="mb-6">
-                <h2 class="text-lg font-semibold text-left w-full mb-2">Les villes où nous sommes présents</h2>  
-                <p class="text-sm">Trouvez des résidences dans des dizaines de villes autour du globe.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                @for (city of cities; track city.id) {
-                <div class="relative h-[200px] rounded-2xl overflow-hidden shadow-lg">
-                    <img src="{{city.imageUrl}}" alt="ville" class="w-full h-full object-cover"/>
-                    <h4 class="absolute top-4 right-4 text-white text-lg font-semibold drop-shadow-lg">
-                        {{city.name}}
-                    </h4>
-                    <div class="absolute bottom-4 left-4 bg-[#b9f4a5] text-black px-4 py-2 rounded-full text-xs font-medium shadow">
-                        Disponible
-                    </div>
+<main class="px-4 md:px-8">
+    <!-- Section villes -->
+    <section class="my-24">
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-left w-full mb-2">Les villes où nous sommes présents</h2>  
+            <p class="text-sm">Trouvez des résidences dans des dizaines de villes autour du globe.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            @for (city of cities; track city.id) {
+            <div class="relative h-[200px] rounded-2xl overflow-hidden shadow-lg">
+                <img src="{{city.imageUrl}}" alt="ville" class="w-full h-full object-cover"/>
+                <h4 class="absolute top-4 right-4 text-white text-lg font-semibold drop-shadow-lg">
+                    {{city.name}}
+                </h4>
+                <div class="absolute bottom-4 left-4 bg-[#b9f4a5] text-black px-4 py-2 rounded-full text-xs font-medium shadow">
+                    Disponible
                 </div>
+            </div>
             }
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Section services -->
-        <section class="my-24">
-            <div class="mb-6">
-                <h2 class="text-xl font-semibold text-left w-full mb-2">Pourquoi nous faire confiance?</h2>  
-                <p class="text-sm">Une expérience de coliving pensée pour votre bien-être et votre épanouissement personnel.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                @for (service of services; track service.id) {
-                <div class="flex flex-col items-center justify-center h-[240px] ring-1 ring-gray-900/5 rounded-2xl shadow-lg p-6 text-center">
-                    <div class="w-16 h-16 bg-[#c7f5b7] rounded-full flex items-center justify-center mb-4">
-                        <img src="{{ service.iconUrl }}" class="w-8 h-8 text-black" alt="{{ service.name }}">
-                    </div>
-                    <h4 class="text-md font-semibold mb-3">{{ service.name }}</h4>
-                    <p class="text-stone-800 text-xs font-normal">
-                        {{ service.description }}
-                    </p>
+    <!-- Section services -->
+    <section class="my-24">
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-left w-full mb-2">Pourquoi nous faire confiance?</h2>  
+            <p class="text-sm">Une expérience de coliving pensée pour votre bien-être et votre épanouissement personnel.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            @for (service of services; track service.id) {
+            <div class="flex flex-col items-center justify-center h-[240px] ring-1 ring-gray-900/5 rounded-2xl shadow-lg p-6 text-center">
+                <div class="w-16 h-16 bg-[#c7f5b7] rounded-full flex items-center justify-center mb-4">
+                    <img src="{{ service.iconUrl }}" class="w-8 h-8 text-black" alt="{{ service.name }}">
                 </div>
-                }
+                <h4 class="text-md font-semibold mb-3">{{ service.name }}</h4>
+                <p class="text-stone-800 text-xs font-normal">
+                    {{ service.description }}
+                </p>
             </div>
-        </section>
-
-        <!-- Section témoignages -->
-        <section class="my-24">
-            <div class="mb-6">
-                <h2 class="text-xl font-semibold text-left w-full mb-2">Nos résidents en témoignent!</h2>  
-                <p class="text-sm">Les témoignages de plus de 18,000 personnes pour vous aider à choisir le meilleur logement.</p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @for (testimony of testimonies; track testimony.id) {
-                <div class="flex flex-col justify-between h-[200px] bg-[#f0eeeee1] ring-1 ring-gray-900/5 rounded-2xl shadow-lg p-6">
-                    <div class="flex items-center gap-6 mb-4">
-                        <div class="w-12 h-12 rounded-full overflow-hidden bg-pink-100 flex-shrink-0">
-                            <img src="{{testimony.user.profilePicture}}" alt="profil" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-row gap-4">
-                            <h4 class="text-md font-semibold">{{testimony.user.name}}</h4>
-                            <div class="flex items-center gap-1">
-                                <span class="text-sm font-semibold">{{testimony.note}}</span>
-                                <svg class="w-4 h-4 text-yellow-400 fill-black" viewBox="0 0 24 24">
-                                    <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
-                                </svg>
-                            </div>
-                        </div>
-                    </div>
-                    <p class="text-stone-700 text-sm leading-relaxed">
-                        {{testimony.comment}}
-                    </p>
-                </div>
             }
+        </div>
+    </section>
+
+    <!-- Section témoignages -->
+    <section class="my-24">
+        <div class="mb-6">
+            <h2 class="text-xl font-semibold text-left w-full mb-2">Nos résidents en témoignent!</h2>  
+            <p class="text-sm">Les témoignages de plus de 18,000 personnes pour vous aider à choisir le meilleur logement.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            @for (testimony of testimonies; track testimony.id) {
+            <div class="flex flex-col justify-between h-[200px] bg-[#f0eeeee1] ring-1 ring-gray-900/5 rounded-2xl shadow-lg p-6">
+                <div class="flex items-center gap-6 mb-4">
+                    <div class="w-12 h-12 rounded-full overflow-hidden bg-pink-100 flex-shrink-0">
+                        <img src="{{testimony.user.profilePicture}}" alt="profil" class="w-full h-full object-cover">
+                    </div>
+                    <div class="flex flex-row gap-4">
+                        <h4 class="text-md font-semibold">{{testimony.user.name}}</h4>
+                        <div class="flex items-center gap-1">
+                            <span class="text-sm font-semibold">{{testimony.note}}</span>
+                            <svg class="w-4 h-4 text-yellow-400 fill-black" viewBox="0 0 24 24">
+                                <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-stone-700 text-sm leading-relaxed">
+                    {{testimony.comment}}
+                </p>
             </div>
-        </section>
-    </main>
+        }
+        </div>
+    </section>
+</main>

@@ -23,9 +23,7 @@ export class ResidencesService{
     });
   }
 
-  /**
-   * Recherche des résidences avec des filtres
-   */
+  // Recherche des résidences avec des filtres
   searchResidences(filters: SearchFilters): Observable<Residence[]> {
     const params = this.buildSearchParams(filters);
     
@@ -38,9 +36,7 @@ export class ResidencesService{
     );
   }
 
-  /**
-   * Récupère une résidence par son ID
-   */
+  // Récupère une résidence par son ID
   getResidenceById(id: number): Observable<Residence> {
     return this.httpClient.get<Residence>(`${this.apiUrl}/${id}`, {
       headers: this.defaultHeaders
@@ -50,12 +46,9 @@ export class ResidencesService{
     );
   }
 
-  /**
-   * Construction des paramètres de recherche
-   */
+  // Construction des paramètres de recherche
   private buildSearchParams(filters: SearchFilters): HttpParams {
     let params = new HttpParams();
-
     Object.entries(filters).forEach(([key, value]) => {
       if (this.isValidFilterValue(value)) {
         // si le champ est "city", on le transforme en "city.name"
@@ -66,14 +59,10 @@ export class ResidencesService{
         }
       }
     });
-
     return params;
   }
 
-
-  /**
-   * Vérifie si une valeur de filtre est valide
-   */
+  // Vérifie si une valeur de filtre est valide
   private isValidFilterValue(value: any): boolean {
     return value !== null && 
            value !== undefined && 
@@ -81,16 +70,12 @@ export class ResidencesService{
            !(typeof value === 'string' && value.trim() === '');
   }
 
-  /**
-   * Transformation des données de résidences (conversion des dates, etc.)
-   */
+  // Transformation des données de résidences (conversion des dates, etc.)
   private transformResidences(residences: any[]): Residence[] {
     return residences.map(residence => this.transformResidence(residence));
   }
 
-  /**
-   * Transformation d'une résidence individuelle
-   */
+  // Transformation d'une résidence individuelle
   private transformResidence(residence: any): Residence {
     return {
       ...residence,
@@ -103,9 +88,7 @@ export class ResidencesService{
     };
   }
 
-  /**
-   * Gestion centralisée des erreurs
-   */
+  // Gestion centralisée des erreurs
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     let errorMessage = 'Une erreur est survenue';
     

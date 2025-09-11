@@ -10,6 +10,11 @@ import { RoomsService } from '../../services/rooms/rooms.service';
 import Room from '../../models/room.interface';
 import { ConveniencesService } from '../../services/conveniences/conveniences.service';
 import Convenience from '../../models/convenience.interface';
+import { ActivatedRoute } from '@angular/router';
+import { RulesService } from '../../services/rules/rules.service';
+import Rule from '../../models/rule.interface';
+import { ResidenceImagesService } from '../../services/residenceImages/residence-images.service';
+import ResidenceImage from '../../models/residenceImage.interface';
 
 @Component({
   selector: 'app-residence-detail',
@@ -20,7 +25,7 @@ import Convenience from '../../models/convenience.interface';
 })
 export class ResidenceDetailComponent implements OnInit {
   private residencesService = inject(ResidencesService);
-  residences: Residence[] = [];
+  residence!: Residence;
   private serviceService = inject(ServiceService);
   services: Service[] = [];
   private testimonyService = inject(TestimoniesService);
@@ -29,24 +34,35 @@ export class ResidenceDetailComponent implements OnInit {
   rooms: Room[] = [];
   private conveniencesService = inject(ConveniencesService);
   conveniences: Convenience[] = [];
+  private residenceImagesService = inject(ResidenceImagesService);
+  residencesImages: ResidenceImage[] = [];
+  private rulesService = inject(RulesService);
+  rules: Rule[] = [];
+  private route = inject(ActivatedRoute);
+
+  testimoniesCount = 0;
+  roomsCount = 0;
 
     ngOnInit(): void {
-    this.loadResidence(889); 
+    // Récupère l'ID depuis l'URL
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    this.loadResidence(id); 
     this.loadServices();
     this.loadTestimonies();
     this.loadRooms();
     this.loadConveniences();
-    // this.loadCities(); // A faire aussi
+    this.loadRules(); // A faire aussi
+    this.loadResidenceImages(); // A faire aussi
   }
 
-  private loadResidence(id: number): void {
+  private loadResidence(id: number): void { 
     this.residencesService.getResidenceById(id).subscribe({
-    next: (data) => { 
-      this.residences = [data];
-      console.log('✅ Résidence chargée:', this.residences);
-    },
+      next: (residence) => { 
+        this.residence = residence; 
+        console.log('✅ Résidence chargée:', this.residence);
+      },
       error: (err) => {
-        console.error('❌ Erreur Services API:', err);
+        console.error('❌ Erreur Residences API:', err);
       }
     });
   }
@@ -67,7 +83,8 @@ export class ResidenceDetailComponent implements OnInit {
     this.testimonyService.getTestimonies().subscribe({
       next: (data) => {
         this.testimonies = data;
-        console.log('✅ Témoignages chargés:', this.testimonies);
+        this.testimoniesCount = data.length;
+        console.log(this.testimoniesCount, 'trouvés');
       },
       error: (err) => {
         console.error('❌ Erreur Testimonies API:', err);
@@ -79,10 +96,23 @@ export class ResidenceDetailComponent implements OnInit {
     this.roomsService.getRooms().subscribe({
       next: (data) => {
         this.rooms = data;
+        this.roomsCount = data.length;
         console.log('✅ Chambres chargés:', this.rooms);
       },
       error: (err) => {
         console.error('❌ Erreur Rooms API:', err);
+      }
+    });
+  }
+
+  private loadResidenceImages(): void {
+    this.residenceImagesService.getResidencesImages().subscribe({
+      next: (data) => {
+        this.residencesImages = data;
+        console.log('✅ Photos de résidence chargés:', this.residencesImages);
+      },
+      error: (err) => {
+        console.error('❌ Erreur ResidencesImages API:', err);
       }
     });
   }
@@ -95,6 +125,18 @@ export class ResidenceDetailComponent implements OnInit {
       },
       error: (err) => {
         console.error('❌ Erreur Conveniences API:', err);
+      }
+    });
+  }
+
+  private loadRules(): void {
+    this.rulesService.getRules().subscribe({
+      next: (data) => {
+        this.rules = data;
+        console.log('✅ Règles chargés:', this.rules);
+      },
+      error: (err) => {
+        console.error('❌ Erreur Rules API:', err);
       }
     });
   }

@@ -61,10 +61,8 @@ export class UserService {
       if (!response.token) {
         return throwError(() => new Error('Pas de token reçu'));
       }
-
       // Sauvegarde temporaire du token
       localStorage.setItem(this.tokenKey, response.token);
-
       // On va chercher les infos de l’utilisateur
       return this.httpClient.get<User>(`${this.apiUrl}/me`, {
         headers: {
@@ -137,18 +135,17 @@ export class UserService {
 
   // Récupère l'utilisateur stocké
   getUser(): User | null {
-  try {
-    const user = localStorage.getItem(this.userKey);
-    if (!user || user === 'undefined' || user === 'null') {
+    try {
+      const user = localStorage.getItem(this.userKey);
+      if (!user || user === 'undefined' || user === 'null') {
+        return null;
+      }
+      return JSON.parse(user);
+    } catch (error) {
+      console.error('Erreur lecture localStorage:', error);
       return null;
     }
-    return JSON.parse(user);
-  } catch (error) {
-    console.error('Erreur lecture localStorage:', error);
-    return null;
   }
-}
-
 
   // Vérifie si l'utilisateur est authentifié
   isAuthenticated(): boolean {
