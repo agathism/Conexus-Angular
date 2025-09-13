@@ -1,0 +1,67 @@
+<!-- Résultats -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">
+          Toutes vos résidences
+        </h1>
+        <p class="text-gray-600">
+          Voici une liste de vos résidences
+        </p>
+      </div>
+    <!-- Grille des résidences -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      @for (residence of residences; track residence.id) {
+      <div class="bg-white rounded-xl shadow-sm hover:shadow-lg transition-shadow duration-300 overflow-hidden group cursor-pointer">
+        <!-- Image -->
+        <div class="relative h-48 overflow-hidden">
+          <img
+            src="{{residence.imageUrl}}" alt=""
+            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
+        </div>
+
+        <!-- Contenu -->
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-2">
+            <h3 class="text-lg font-semibold text-gray-900 group-hover:text-[#b9f4a5] transition-colors">
+             {{ residence.title }}
+            </h3>
+            <div class="text-right">
+              <div class="text-2xl font-bold text-[#b9f4a5]">{{residence.monthlyPrice}}€</div>
+              <div class="text-xs text-gray-600">Par mois</div>
+            </div>
+          </div>
+
+          <p class="text-gray-800 text-md mb-3 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-building2-icon lucide-building-2">
+              <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+            {{residence.city.name }}
+          </p>
+
+          <p class="text-gray-800 text-md mb-3 flex items-center">
+            <svg class="h-4 w-4 mr-1" fill="none" stroke="black" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            </svg>
+            {{residence.address }}
+          </p> 
+
+          <!-- Informations clés -->
+          <div class="flex justify-between items-center mb-4 text-md text-gray-800">
+            <span class="flex items-center">
+              <svg class="h-4 w-4 mr-1" fill="none" stroke="black" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"/>
+              </svg>
+              {{residence.surface}} (m²)
+            </span>
+            <span class="flex items-center">
+              {{residence.amountShowers}} 
+              <img src="{{residence.iconShower}}" alt="Shower" class="h-6 w-8"/>
+            </span>
+          </div>
+          <!-- Bouton d'action -->
+          <a (click)="goToDetail(residence)" class="w-full bg-[#b9f4a5] text-black py-2 px-4 rounded-lg hover:bg-[#b9f4a5] transition-colors">
+            Voir les détails
+          </a>
+        </div>
+      </div>
+    }
+    </div>

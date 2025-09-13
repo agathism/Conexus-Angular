@@ -4,8 +4,6 @@ import Residence from '../../models/residence.interface';
 import { CommonModule } from '@angular/common';
 import { ServiceService } from '../../services/services/service.service';
 import Service from '../../models/service.interface';
-import { TestimoniesService } from '../../services/testimonies/testimonies.service';
-import Testimony from '../../models/testimony.interface';
 import { RoomsService } from '../../services/rooms/rooms.service';
 import Room from '../../models/room.interface';
 import { ConveniencesService } from '../../services/conveniences/conveniences.service';
@@ -28,8 +26,6 @@ export class ResidenceDetailComponent implements OnInit {
   residence!: Residence;
   private serviceService = inject(ServiceService);
   services: Service[] = [];
-  private testimonyService = inject(TestimoniesService);
-  testimonies: Testimony[] = [];
   private roomsService = inject(RoomsService);
   rooms: Room[] = [];
   private conveniencesService = inject(ConveniencesService);
@@ -48,11 +44,10 @@ export class ResidenceDetailComponent implements OnInit {
     const id = +this.route.snapshot.paramMap.get('id')!;
     this.loadResidence(id); 
     this.loadServices();
-    this.loadTestimonies();
     this.loadRooms();
     this.loadConveniences();
-    this.loadRules(); // A faire aussi
-    this.loadResidenceImages(); // A faire aussi
+    this.loadRules(); 
+    this.loadResidenceImages(); 
   }
 
   private loadResidence(id: number): void { 
@@ -78,19 +73,6 @@ export class ResidenceDetailComponent implements OnInit {
       }
     });
   } 
-
-  private loadTestimonies(): void {
-    this.testimonyService.getTestimonies().subscribe({
-      next: (data) => {
-        this.testimonies = data;
-        this.testimoniesCount = data.length;
-        console.log(this.testimoniesCount, 'trouvés');
-      },
-      error: (err) => {
-        console.error('❌ Erreur Testimonies API:', err);
-      }
-    });
-  }
 
   private loadRooms(): void {
     this.roomsService.getRooms().subscribe({

@@ -1,15 +1,19 @@
-import { inject, Injectable, OnInit } from '@angular/core';
+import { inject, Injectable} from '@angular/core';
 import Residence from '../../models/residence.interface';
 import { catchError, map, Observable, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import SearchFilters from '../../models/searchFilters.interface';
+import { UserService } from '../users/user-service';
+import ResidenceCreation from '../../models/residenceCreation.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ResidencesService{
   private httpClient = inject(HttpClient);
+  private userService = inject(UserService);
   private apiUrl = 'http://127.0.0.1:8000/api/residences';
+  private myResidenceUrl = 'http://127.0.0.1:8000/api/my-residences'
 
   // Headers par défaut
   private readonly defaultHeaders = {
@@ -23,10 +27,16 @@ export class ResidencesService{
     });
   }
 
+  // Permet de récupérer les résidences dont je suis propriétaires
+  getMyResidences(): Observable<Residence[]> {
+    return this.httpClient.get<Residence[]>(this.myResidenceUrl, {
+      headers: this.userService.getAuthHeaders()
+    });
+  }
+
   // Recherche des résidences avec des filtres
   searchResidences(filters: SearchFilters): Observable<Residence[]> {
     const params = this.buildSearchParams(filters);
-    
     return this.httpClient.get<Residence[]>(this.apiUrl, { 
       params,
       headers: this.defaultHeaders
@@ -44,6 +54,28 @@ export class ResidencesService{
       map(residence => this.transformResidence(residence)),
       catchError(this.handleError)
     );
+  }
+
+  
+  // Créer une nouvelle résidence
+  createResidence(residenceData: Partial<ResidenceCreation>): Observable<ResidenceCreation> {
+    return this.httpClient.post<ResidenceCreation>(this.apiUrl, residenceData, {
+      headers: this.userService.getAuthHeaders()
+    })
+  }
+
+  // Modifier une résidence existante
+  updateResidence(id: number, residenceData: Partial<Residence>): Observable<Residence> {
+    return this.httpClient.put<Residence>(`${this.apiUrl}/${id}`, residenceData, {
+      headers: this.userService.getAuthHeaders()
+    })
+  }
+
+  // Supprimer une résidence
+  deleteResidence(id: number): Observable<void> {
+    return this.httpClient.delete<void>(`${this.apiUrl}/${id}`, {
+      headers: this.userService.getAuthHeaders()
+    })
   }
 
   // Construction des paramètres de recherche
@@ -91,7 +123,6 @@ export class ResidencesService{
   // Gestion centralisée des erreurs
   private handleError = (error: HttpErrorResponse): Observable<never> => {
     let errorMessage = 'Une erreur est survenue';
-    
     if (error.error instanceof ErrorEvent) {
       // Erreur côté client
       errorMessage = `Erreur client: ${error.error.message}`;

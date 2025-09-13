@@ -11,6 +11,8 @@ import { LoginComponent } from './components/login/login.component';
 import { ResidenceSearchComponent } from './components/residence-search/residence-search.component';
 import { ReservationsComponent } from './components/reservations/reservations.component';
 import { ResidenceCreateComponent } from './components/residence-create/residence-create.component';
+import { ResidenceModifyComponent } from './components/residence-modify/residence-modify.component';
+import { ResidenceListsComponent } from './components/residence-lists/residence-lists.component';
 
 export const routes: Routes = [
     { path: 'app-home', component: HomeComponent },
@@ -25,5 +27,7 @@ export const routes: Routes = [
     { path: 'app-residence-search', component: ResidenceSearchComponent },
     { path: 'app-residence-create', component: ResidenceCreateComponent },
     { path: 'app-reservations', component: ReservationsComponent },
+    { path: 'app-residence-modify', component: ResidenceModifyComponent },
+    { path: 'app-residence-lists', component: ResidenceListsComponent },
     { path: '', redirectTo: 'app-home', pathMatch: 'full'}
 ];

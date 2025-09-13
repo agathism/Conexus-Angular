@@ -1,6 +1,7 @@
 <div class="max-w-5xl mx-auto mt-8 px-4">
   <h1 class="text-3xl font-bold text-gray-900 mb-8">Mes réservations</h1>
 
+  @for (reservation of reservations; track reservation.id) {
   <div class="grid gap-6">
       <div class="bg-white shadow rounded-2xl p-6 flex flex-col md:flex-row gap-6 border border-gray-100">
         <!-- Image résidence -->
@@ -13,16 +14,16 @@
         <div class="flex-1 flex flex-col justify-between">
           <div>
             <h2 class="text-xl font-semibold text-gray-900"></h2>
-            <p class="text-gray-600">Ville et adresse</p> 
+            <p class="text-gray-600">{{reservation.residence.city}}</p> 
             <div class="mt-2 grid grid-cols-2 gap-4 text-sm text-gray-700">
               <div>
                 <span class="font-medium">Surface :</span>  m²
               </div>
               <div>
-                <span class="font-medium">Prix :</span>  €/mois
+                <span class="font-medium">Prix : {{reservation.totalAmount}} </span>  €/mois
               </div>
               <div>
-                <span class="font-medium">Date :</span>
+                <span class="font-medium">Date : {{reservation.startDate}}</span>
               </div>
               <div>
                 <span class="font-medium">Statut :</span>
@@ -37,4 +38,5 @@
         </div>
       </div>
   </div>
+  }
 </div>

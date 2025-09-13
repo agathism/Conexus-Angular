@@ -3,6 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import User  from '../../models/user.interface';
 import { BehaviorSubject, catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
 import UserRegistration from '../../models/userRegistration.interface';
+import Residence from '../../models/residence.interface';
 
 @Injectable({
   providedIn: 'root'
