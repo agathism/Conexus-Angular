@@ -26,7 +26,8 @@ export class RegisterComponent {
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]], // Validation de la longueur du mot de passe
+      // Validation de la longueur du mot de passe
+      password: ['', [Validators.required, Validators.minLength(6)]], 
       userGenre: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
       profilePicture: ['', [Validators.required]]

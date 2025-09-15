@@ -24,9 +24,21 @@ export class HomeComponent implements OnInit {
   testimonies: Testimony[] = [];
 
   ngOnInit(): void {
+    this.loadCities(); 
     this.loadServices();
     this.loadTestimonies();
-    this.loadCities(); 
+  }
+
+  private loadCities(): void {
+    this.citiesService.getCities().subscribe({
+      next: (data) => {
+        this.cities = data;
+        console.log('✅ Villes chargées:', this.cities);
+      },
+      error: (err) => {
+        console.error('❌ Erreur Cities API:', err);
+      }
+    });
   }
 
   private loadServices(): void {
@@ -49,18 +61,6 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('❌ Erreur Testimonies API:', err);
-      }
-    });
-  }
-
-  private loadCities(): void {
-    this.citiesService.getCities().subscribe({
-      next: (data) => {
-        this.cities = data;
-        console.log('✅ Villes chargées:', this.cities);
-      },
-      error: (err) => {
-        console.error('❌ Erreur Cities API:', err);
       }
     });
   }

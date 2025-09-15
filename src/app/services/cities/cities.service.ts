@@ -1,4 +1,4 @@
-import { Injectable, inject, OnInit } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import City from '../../models/city.interface';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';

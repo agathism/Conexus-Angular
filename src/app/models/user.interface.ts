@@ -10,6 +10,7 @@ export default interface User {
   password: string
   createdAt: string
   birthDate: string
+  roles: string[]
   userGenre: string
   residences: Residence
   testimonies: Testimony

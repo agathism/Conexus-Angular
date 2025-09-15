@@ -1,7 +1,5 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ResidenceDetailComponent } from './components/residence-detail/residence-detail.component';
 import { ChatComponent } from './components/chat/chat.component';
@@ -13,21 +11,23 @@ import { ReservationsComponent } from './components/reservations/reservations.co
 import { ResidenceCreateComponent } from './components/residence-create/residence-create.component';
 import { ResidenceModifyComponent } from './components/residence-modify/residence-modify.component';
 import { ResidenceListsComponent } from './components/residence-lists/residence-lists.component';
+import { authGuard } from './guards/auth.guard';
+import { roleGuard } from './guards/role.guard';
+import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
 
 export const routes: Routes = [
     { path: 'app-home', component: HomeComponent },
-    { path: 'app-navbar', component: NavbarComponent },
-    { path: 'app-footer', component: FooterComponent },
     { path: 'app-login', component: LoginComponent },
     { path: 'app-register', component: RegisterComponent },
-    { path: 'app-contact', component: ContactComponent },
-    { path: 'app-chat', component: ChatComponent },
+    { path: 'app-contact', component: ContactComponent, canActivate: [authGuard] },
+    { path: 'app-chat', component: ChatComponent, canActivate: [authGuard] },
     { path: 'app-residence-detail/:id', component: ResidenceDetailComponent },
-    { path: 'app-profile', component: ProfileComponent },
+    { path: 'app-profile', component: ProfileComponent, canActivate: [authGuard] },
     { path: 'app-residence-search', component: ResidenceSearchComponent },
-    { path: 'app-residence-create', component: ResidenceCreateComponent },
-    { path: 'app-reservations', component: ReservationsComponent },
-    { path: 'app-residence-modify', component: ResidenceModifyComponent },
-    { path: 'app-residence-lists', component: ResidenceListsComponent },
+    { path: 'app-residence-create', component: ResidenceCreateComponent, canActivate: [authGuard]  },
+    { path: 'app-reservations', component: ReservationsComponent, canActivate: [authGuard]  },
+    { path: 'app-residence-modify', component: ResidenceModifyComponent, canActivate: [roleGuard], data: {requiredRole: 'ROLE_OWNER'} },
+    { path: 'app-residence-lists', component: ResidenceListsComponent, canActivate: [roleGuard], data: {requiredRole: 'ROLE_OWNER' } },
+    { path: 'app-unauthorized', component: UnauthorizedComponent },
     { path: '', redirectTo: 'app-home', pathMatch: 'full'}
 ];
