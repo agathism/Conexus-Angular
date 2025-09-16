@@ -40,6 +40,7 @@
         </div>
       }
     </div>
+  </div>
     <!-- Section conversation en entier -->
     <div class="md:w-2/3 flex flex-col h-full my-10" (class)="selectedConversation">
     
@@ -59,8 +60,7 @@
       <!-- Bouton fermer (optionnel sur mobile) -->
       <button 
         class="ml-auto md:hidden p-2 hover:bg-gray-100 rounded-full"
-        (click)="closeConversation()"
-      >
+        (click)="closeConversation()" >
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
         </svg>
@@ -71,7 +71,7 @@
     <div class="flex-1 overflow-y-auto p-4 bg-gray-50 space-y-4">
       
       <!-- Message reçu -->
-      @for (message of messages; track message.id) {
+      <!-- @for (message of messages; track message.id) {
         @if (message.sender.id !== currentUser.id) {
         <div class="flex items-start space-x-3">
           <img 
@@ -86,10 +86,10 @@
             </span>
           </div>
         </div>
-        }
+        } -->
         
         <!-- Message envoyé -->
-        @else {
+        <!-- @else {
         <div class="flex items-start space-x-3 justify-end">
           <div class="bg-conexus-green text-white p-3 rounded-lg shadow-sm max-w-xs">
             <p>contenu</p>
@@ -103,9 +103,8 @@
             class="w-8 h-8 rounded-full object-cover"
           />
         </div>
-        }
-      }
+        } -->
+      <!-- } -->
     </div>
-  </div>
 </div>
 

@@ -1,7 +1,3 @@
-import Residence from "./residence.interface"
-import Room from "./room.interface"
-import User from "./user.interface"
-
 export default interface Reservation {
   id: number
   startDate: string
@@ -10,7 +6,14 @@ export default interface Reservation {
   createdAt: string
   amountPeople: string
   status: string
-  user: User
-  room: Room
-  residence: Residence
+  room: {
+    title: string
+  }
+  residence: {
+    title: string
+    city: string
+    address: string
+    imageUrl: string
+    montlyPrice: string
+  }
 }

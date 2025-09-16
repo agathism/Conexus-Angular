@@ -3,12 +3,12 @@ import User from '../../models/user.interface';
 import { UserService } from '../../services/users/user-service';
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CommonModule} from '@angular/common';
+import { CommonModule, DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, DatePipe],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })

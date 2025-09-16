@@ -1,42 +1,47 @@
 <div class="max-w-5xl mx-auto mt-8 px-4">
   <h1 class="text-3xl font-bold text-gray-900 mb-8">Mes réservations</h1>
 
-  @for (reservation of reservations; track reservation.id) {
-  <div class="grid gap-6">
+  <div class="grid gap-6 mb-8">
+    @for (reservation of reservations; track reservation.id) {
       <div class="bg-white shadow rounded-2xl p-6 flex flex-col md:flex-row gap-6 border border-gray-100">
         <!-- Image résidence -->
         <img
-          src=""
-          alt="Résidence"
+          src="{{reservation.residence.imageUrl}}"
+          alt="{{reservation.residence.title}}"
           class="w-full md:w-40 h-40 object-cover rounded-xl"
         />
         <!-- Infos réservation -->
         <div class="flex-1 flex flex-col justify-between">
           <div>
-            <h2 class="text-xl font-semibold text-gray-900"></h2>
-            <p class="text-gray-600">{{reservation.residence.city}}</p> 
-            <div class="mt-2 grid grid-cols-2 gap-4 text-sm text-gray-700">
+            <div class="flex items-center justify-between">
+            <h2 class="text-xl font-semibold text-gray-900 mb-2">{{reservation.residence.title}}</h2>
+                <span [class]="getStatus(reservation.status)">{{ reservation.status }}</span>
+              </div>
+            <p class="text-black text-md mb-2"><strong>Chambre:</strong> {{reservation.room.title}}
+            <p class="text-black text-md">{{reservation.residence.city}}
+            <div class="mt-2 grid grid-cols-3 gap-4 text-sm text-gray-700">
               <div>
-                <span class="font-medium">Surface :</span>  m²
+                <span class="font-medium">Addresse: {{reservation.residence.address}} </span>
               </div>
               <div>
-                <span class="font-medium">Prix : {{reservation.totalAmount}} </span>  €/mois
+                <span class="font-medium">Prix: {{reservation.totalAmount}} </span>  €/mois
               </div>
               <div>
-                <span class="font-medium">Date : {{reservation.startDate}}</span>
+                <span class="font-medium">Début: {{reservation.startDate | date: 'short'}} </span>
               </div>
               <div>
-                <span class="font-medium">Statut :</span>
-                <span
-                  class="px-2 py-1 rounded-full text-xs font-medium"
-                >
-                  Statut
-                </span>
+                <span class="font-medium">Date de la demande: {{reservation.createdAt | date: 'shortDate'}} </span>
+              </div>
+              <div>
+                <span class="font-medium">Nombres de personnes: {{reservation.amountPeople}} </span>
+              </div>
+              <div>
+                <span class="font-medium">Fin: {{reservation.endDate | date: 'short'}} </span>
               </div>
             </div>
           </div>
         </div>
       </div>
+    } 
   </div>
-  }
 </div>

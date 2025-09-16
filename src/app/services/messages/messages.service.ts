@@ -1,6 +1,6 @@
 import { Injectable} from '@angular/core';
 import Message from '../../models/message.interface';
-import ConversationSummary from '../../models/conversationSummary.interface';
+import Conversation from '../../models/conversation.interface';
 import { catchError, Observable, tap, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { UserService } from '../users/user-service';
@@ -37,7 +37,7 @@ export class MessagesService{
   }
 
   // Conversation avec un utilisateur spécifique
-  getConversations(): Observable<ConversationSummary[]> {
+  getConversations(): Observable<Conversation[]> {
     console.log('🔄 getConversations - Début');
     
     if (!this.checkAuthentication()) {
@@ -45,7 +45,7 @@ export class MessagesService{
       return throwError(() => new Error('Non authentifié'));
     }
     
-    return this.httpClient.get<ConversationSummary[]>(`${this.apiUrl}/my-conversations`, { 
+    return this.httpClient.get<Conversation[]>(`${this.apiUrl}/my-conversations`, { 
       headers: this.userService.getAuthHeaders() 
     }).pipe(
       tap(conversations => {

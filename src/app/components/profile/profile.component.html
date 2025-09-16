@@ -73,7 +73,7 @@
                                 type="date" 
                                 id="birthDate" 
                                 name="birthDate" 
-                                value="{{user?.birthDate}}"
+                                value="{{user?.birthDate | date: 'fullDate'}}"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
                             />
                         </div>

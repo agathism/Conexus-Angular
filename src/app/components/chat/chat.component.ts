@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { MessagesService } from '../../services/messages/messages.service';
 import Message from '../../models/message.interface';
 import { DatePipe } from '@angular/common';
-import ConversationSummary from '../../models/conversationSummary.interface';
+import ConversationSummary from '../../models/conversation.interface';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/users/user-service';
 
@@ -29,29 +29,27 @@ export class ChatComponent implements OnInit{
 
   // Pour envoyer un message il ne faut que le contenu. Toutes les autres prorpriétés sont pré-remplies
   constructor() {
-      this.messageForm = this.formBuilder.group({
-        content: ['', [Validators.required]]
-      });
-    }
+    this.messageForm = this.formBuilder.group({
+      content: ['', [Validators.required]]
+    });
+  }
   
   ngOnInit(): void {
     console.log('🚀 Initialisation du component conversations');
-    this.currentUser = this.authService.getCurrentUserId();
     this.loadConversations();
   }
 
   // Je charge une conversation spécifique sur la page de présentation
   loadConversations(): void {
     console.log('🔄 Début du chargement des conversations...');
-    this.isLoading = true;
     this.errorMessage = '';
+    this.isLoading = true;
 
     this.messagesService.getConversations().subscribe({
       next: (conversations) => {
         console.log('✅ Conversations reçues dans le component:', conversations);
         console.log('📊 Nombre de conversations:', conversations.length);
         this.conversations = conversations;
-        this.isLoading = false;
 
         if (conversations.length === 0) {
           console.log('ℹ️ Aucune conversation trouvée');
@@ -64,23 +62,22 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  /**
-   * Sélectionne une conversation et charge ses messages
-   */
+  // Sélectionne une conversation et charge ses messages
   selectConversation(conversation: any) {
     this.selectedConversation = conversation;
     this.loadMessages(conversation.otherUser.id);
   }
 
   loadMessages(otherUserId: number): void {
+    this.isLoading = true;
     this.messagesService.getMessages().subscribe({
       next: (messages) => {
         this.messages = messages;
-        // Scroll vers le bas après chargement
+        this.isLoading = false;
         setTimeout(() => this.scrollToBottom(), 100);
       },
       error: (error) => {
-        console.error('Erreur lors du chargement des messages:', error);
+        this.handleError('Erreur lors du chargement des messages', error);
       }
     });
   }
