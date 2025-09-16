@@ -1,7 +1,7 @@
 import { Injectable} from '@angular/core';
 import Message from '../../models/message.interface';
 import Conversation from '../../models/conversation.interface';
-import { catchError, Observable, tap, throwError} from 'rxjs';
+import { catchError, Observable, of, tap, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { UserService } from '../users/user-service';
 
@@ -9,7 +9,7 @@ import { UserService } from '../users/user-service';
   providedIn: 'root'
 })
 export class MessagesService{
-  private readonly apiUrl = 'http://127.0.0.1:8000/api';
+  private readonly apiUrl = 'http://127.0.0.1:8000/api';              
 
   constructor(
     private httpClient: HttpClient,
@@ -49,10 +49,7 @@ export class MessagesService{
       headers: this.userService.getAuthHeaders() 
     }).pipe(
       tap(conversations => {
-        console.log('✅ Réponse API brute:', conversations);
-        console.log('✅ Type de la réponse:', typeof conversations);
-        console.log('✅ Est un array:', Array.isArray(conversations));
-        console.log('✅ Nombre d\'éléments:', conversations ? conversations.length : 'undefined');
+        console.log('💾 Conversations mises en cache:', conversations);
       }),
       catchError(error => {
         console.error('❌ Erreur dans getConversations:', error);
@@ -62,25 +59,23 @@ export class MessagesService{
   }
 
   // Tous les messages avec un utilisateur spécifique
-  getMessages(): Observable<Message[]> {
-    console.log('🔄 getMessages - Début');
-    
+  getMessages(otherUserId: number): Observable<Message[]> {
+    console.log('🔄 getMessages - Début pour userId:', otherUserId);
     if (!this.checkAuthentication()) {
       console.log('❌ Échec authentification');
       return throwError(() => new Error('Non authentifié'));
     }
-
-    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/{otherUserId}`, { 
-      headers: this.userService.getAuthHeaders() 
+    console.log('🔧 URL construite:', `${this.apiUrl}/my-messages/${otherUserId}`);
+    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/${otherUserId}`, {
+      headers: this.userService.getAuthHeaders()
     }).pipe(
-      tap(conversations => {
-        console.log('✅ Réponse API brute:', conversations);
-        console.log('✅ Type de la réponse:', typeof conversations);
-        console.log('✅ Est un array:', Array.isArray(conversations));
-        console.log('✅ Nombre d\'éléments:', conversations ? conversations.length : 'undefined');
+      tap(messages => {
+        console.log('🔧 Service - Réponse reçue:', messages);
+        console.log('🔧 Service - Type:', typeof messages);
+        console.log('🔧 Service - IsArray:', Array.isArray(messages));
       }),
       catchError(error => {
-        console.error('❌ Erreur dans getConversations:', error);
+        console.error('❌ Erreur dans getMessages:', error);
         return this.handleError(error);
       })
     );

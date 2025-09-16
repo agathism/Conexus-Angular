@@ -18,11 +18,4 @@ export class ReservationsService {
       headers: this.userService.getAuthHeaders() 
     });
   }
-
-  // Permet de récupérer les résidences qui me concerne
-  // getMyReservations(): Observable<Reservation[]> {
-  //   return this.httpClient.get<Reservation[]>(this.myResidenceUrl, {
-  //     headers: this.userService.getAuthHeaders()
-  //   });
-  // }
 }

@@ -1,16 +1,11 @@
+import User from "./user.interface"
+
 export default interface Message {
-  id: number
+  id?: number
   content: string
   createdAt: string
-  sender: {
-    id: number
-    name: string
-    profilePicture: string
-  }
-  receiver: {
-    id: number
-    name: string
-    profilePicture: string
-  }
+  senderId: number
+  currentUser: User
+  otherUser: User
   updatedAt: string
 }

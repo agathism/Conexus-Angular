@@ -40,7 +40,7 @@
                  @for (residenceImage of residencesImages; track residenceImage.id) {
                 <div class="relative">
                     <img src="{{residenceImage.imageUrl}}" 
-                         alt="Cuisine commune" 
+                         alt="Photo de la résidence" 
                          class="w-full h-44 lg:h-50 object-cover hover:scale-105 transition-transform duration-300">
                 </div>
                 }
@@ -101,15 +101,15 @@
                         <div class="border-b border-gray-100 pb-6">
                             <div class="flex items-start gap-4">
                                 <div class="flex items-center justify-center">
-                                    <img src="{{room.imageUrl}}" alt="{{room.title}}" class="w-36 h-36 ">
+                                    <img src="{{room.imageUrl}}" alt="{{room?.title}}" class="w-36 h-36 ">
                                 </div>
                                 <div class="flex-1">
                                     <div class="flex items-center gap-2 mb-2">
-                                        <span class="font-semibold text-gray-900">{{room.title}}</span>
+                                        <span class="font-semibold text-gray-900">{{room?.title}}</span>
                                         <div class="flex items-center">
-                                            <span class="text-sm text-gray-600 ml-1">{{room.surface}} m²</span>
+                                            <span class="text-sm text-gray-600 ml-1">{{room?.surface}} m²</span>
                                         </div>
-                                        <span class="text-sm text-gray-500">• {{room.monthlyPrice}}€/mois</span>
+                                        <span class="text-sm text-gray-500">• {{room?.monthlyPrice}}€/mois</span>
                                     </div>
                                     <p class="text-gray-700">
                                         {{room.description}}

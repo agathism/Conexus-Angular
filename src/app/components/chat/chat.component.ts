@@ -13,7 +13,7 @@ import { UserService } from '../../services/users/user-service';
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
   private messagesService = inject(MessagesService);
   private authService = inject(UserService);
   messageForm: FormGroup;
@@ -25,21 +25,34 @@ export class ChatComponent implements OnInit{
   isLoading = false;
   selectedConversation: any = null;
   errorMessage = '';
-  currentUser: any;
+  currentUser: any = null; // Initialisé explicitement
 
-  // Pour envoyer un message il ne faut que le contenu. Toutes les autres prorpriétés sont pré-remplies
   constructor() {
     this.messageForm = this.formBuilder.group({
       content: ['', [Validators.required]]
     });
   }
+
+  send() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log('Envoi réussi !');
+    }, 3000);
+  }
   
   ngOnInit(): void {
     console.log('🚀 Initialisation du component conversations');
+    this.loadCurrentUser(); // Charge l'utilisateur actuel
     this.loadConversations();
   }
 
-  // Je charge une conversation spécifique sur la page de présentation
+  // Méthode pour charger l'utilisateur actuel
+  private loadCurrentUser(): void {
+    // Adaptez selon votre service d'authentification
+    this.currentUser = this.authService.getCurrentUserId();
+  }
+
   loadConversations(): void {
     console.log('🔄 Début du chargement des conversations...');
     this.errorMessage = '';
@@ -47,11 +60,18 @@ export class ChatComponent implements OnInit{
 
     this.messagesService.getConversations().subscribe({
       next: (conversations) => {
-        console.log('✅ Conversations reçues dans le component:', conversations);
+        console.log( 'Conversations reçues dans le component:', conversations);
         console.log('📊 Nombre de conversations:', conversations.length);
-        this.conversations = conversations;
+        // vérification et nettoyage des données amélioré
+        this.conversations = conversations.filter(conv => 
+          conv && 
+          conv.id && 
+          conv.otherUser && 
+          conv.otherUser.id
+        );
+        this.isLoading = false; 
 
-        if (conversations.length === 0) {
+        if (this.conversations.length === 0) {
           console.log('ℹ️ Aucune conversation trouvée');
         }
       },
@@ -62,7 +82,6 @@ export class ChatComponent implements OnInit{
     });
   }
 
-  // Sélectionne une conversation et charge ses messages
   selectConversation(conversation: any) {
     this.selectedConversation = conversation;
     this.loadMessages(conversation.otherUser.id);
@@ -70,26 +89,26 @@ export class ChatComponent implements OnInit{
 
   loadMessages(otherUserId: number): void {
     this.isLoading = true;
-    this.messagesService.getMessages().subscribe({
+    this.messages = []; // Réinitialiser les messages
+    
+    this.messagesService.getMessages(otherUserId).subscribe({
       next: (messages) => {
-        this.messages = messages;
+        this.messages = messages || []; // Fallback sur array vide
         this.isLoading = false;
         setTimeout(() => this.scrollToBottom(), 100);
       },
       error: (error) => {
+        this.messages = []; // Réinitialiser en cas d'erreur
         this.handleError('Erreur lors du chargement des messages', error);
       }
     });
   }
   
-  // Ferme la conversation (utile sur mobile)
   closeConversation() {
     this.selectedConversation = null;
-    
+    this.messages = []; // Vider les messages
   }
 
-  
-  // Scroll automatique vers le bas des messages
   private scrollToBottom() {
     const container = document.querySelector('#messagesContainer');
     if (container) {
@@ -97,21 +116,26 @@ export class ChatComponent implements OnInit{
     }
   }
 
-  // Gestion du responsive - masquer la liste sur mobile quand conversation active
   get showConversationList(): boolean {
-    // Sur mobile, masquer la liste si une conversation est sélectionnée
     return window.innerWidth >= 768 || !this.selectedConversation;
   }
 
-  // Gestion d'erreur centralisée (il me permet d'éviter la duplication)
   private handleError(message: string, error: any): void {
     this.errorMessage = message;
     this.isLoading = false;
     console.error(error);
   }
 
-  // Je nettoie le message d'erreur
   clearError(): void {
     this.errorMessage = '';
+  }
+
+  // Méthode trackBy pour optimiser les performances
+  trackByConversationId(index: number, conversation: ConversationSummary): any {
+    return conversation?.id || index;
+  }
+
+  trackByMessageId(index: number, message: Message): any {
+    return message?.id || index;
   }
 }

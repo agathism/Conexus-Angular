@@ -15,11 +15,21 @@ export class RegisterComponent {
   registerForm: FormGroup;
   // Message d'erreur à afficher à l'utilisateur
   errorMessage = '';
+  // États de loading pour différents boutons
+  isLoading = false;
 
   // Injection des services nécessaires
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
+
+  connecting() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log('Connexion réussi !');
+    }, 3000);
+  }
 
   constructor() {
     // Initialisation du formulaire avec les champs et leurs validations

@@ -3,6 +3,7 @@ import { ReservationsService } from '../../services/reservations/reservations.se
 import { Router } from '@angular/router';
 import { CommonModule, DatePipe } from '@angular/common';
 import Reservation from '../../models/reservation.interface';
+import { UserService } from '../../services/users/user-service';
 
 @Component({
   selector: 'app-reservations',
@@ -14,6 +15,7 @@ import Reservation from '../../models/reservation.interface';
 export class ReservationsComponent {
   private reservationsService = inject(ReservationsService);
   private router = inject(Router);
+  isOwner: typeof this.userService.isOwner;
   // Liste des réservations
   reservations: Reservation[] = [];
       
@@ -21,6 +23,10 @@ export class ReservationsComponent {
   isLoading = false;
   errorMessage = '';
   resultCount = 0;
+
+  constructor(private userService: UserService) {
+    this.isOwner = this.userService.isOwner;
+  }
   
   ngOnInit(): void{
     this.loadMyReservations();

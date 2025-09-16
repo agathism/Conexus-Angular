@@ -23,14 +23,14 @@ export class ResidencesService{
   };
 
   getResidences(): Observable<Residence[]> {
-    return this.httpClient.get<Residence[]>(this.apiUrl, {
+    return this.httpClient.get<Residence[]>(`${this.apiUrl}`, {
       headers: { 'accept': 'application/json' }
     });
   }
 
   // Permet de récupérer les résidences dont je suis propriétaires
   getMyResidences(): Observable<Residence[]> {
-    return this.httpClient.get<Residence[]>(this.myResidenceUrl, {
+    return this.httpClient.get<Residence[]>(`${this.myResidenceUrl}`, {
       headers: this.userService.getAuthHeaders()
     });
   }
@@ -38,7 +38,7 @@ export class ResidencesService{
   // Recherche des résidences avec des filtres
   searchResidences(filters: SearchFilters): Observable<Residence[]> {
     const params = this.buildSearchParams(filters);
-    return this.httpClient.get<Residence[]>(this.apiUrl, { 
+    return this.httpClient.get<Residence[]>(`${this.apiUrl}`, { 
       params,
       headers: this.defaultHeaders
     }).pipe(
@@ -60,7 +60,7 @@ export class ResidencesService{
   
   // Créer une nouvelle résidence
   createResidence(residenceData: ResidenceCreation): Observable<ResidenceCreation> {
-    return this.httpClient.post<ResidenceCreation>(this.createUrl, residenceData, {
+    return this.httpClient.post<ResidenceCreation>(`${this.createUrl}`, residenceData, {
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json'

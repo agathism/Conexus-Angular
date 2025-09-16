@@ -14,6 +14,9 @@ export class LoginComponent {
   loginForm: FormGroup;
   errorMessage = '';
 
+  // États de loading pour différents boutons
+  isLoading = false;
+
   private formBuilder = inject(FormBuilder);
   private userService = inject(UserService);
   private router = inject(Router);
@@ -23,6 +26,14 @@ export class LoginComponent {
       username: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
+  }
+
+  connecting() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log('Connexion réussi !');
+    }, 3000);
   }
 
   monFormEstSoumis() {

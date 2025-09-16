@@ -14,6 +14,7 @@ export class ContactComponent {
   errorMessage = '';
   successMessage = '';
   isSubmitting = false;
+  isLoading = false;
 
   private formBuilder = inject(FormBuilder);
   private contactService = inject(ContactsService);
@@ -27,13 +28,14 @@ export class ContactComponent {
     });
   }
 
+  
   //  Passe les données au service
   monFormEstSoumis() {
     if (this.contactForm.valid) {
       this.isSubmitting = true;
       this.errorMessage = '';
       this.successMessage = '';
-
+      
       // Récupère les données du formulaire
       const contactData = {
         name: this.contactForm.value.name,
@@ -43,7 +45,7 @@ export class ContactComponent {
       };
 
       console.log('📤 Données envoyées:', contactData); // DEBUG
-
+      
       this.contactService.sendContact(contactData).subscribe({
         next: (response: any) => {
           console.log('✅ Succès:', response);
@@ -74,5 +76,13 @@ export class ContactComponent {
           }
         }
       });
-  }}
+    }}
+    
+    submitting() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        console.log('Connexion réussi !');
+      }, 3000);
+    }
 }

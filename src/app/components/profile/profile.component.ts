@@ -59,6 +59,14 @@ export class ProfileComponent {
       }
     });
   }
+
+  submitting() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log('Connexion réussi !');
+    }, 3000);
+  }
   
   // Méthode appelée lors de la soumission du formulaire
   // monFormEstSoumis() {

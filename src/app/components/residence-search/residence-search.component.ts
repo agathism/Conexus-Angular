@@ -44,6 +44,14 @@ export class ResidenceSearchComponent implements OnInit {
     this.loadAllResidences();
   }
 
+  connecting() {
+    this.isLoading = true;
+    setTimeout(() => {
+      this.isLoading = false;
+      console.log('Connexion réussi !');
+    }, 3000);
+  }
+
   // Charge toutes les résidences au démarrage
   private loadAllResidences(): void {
     this.isLoading = true;

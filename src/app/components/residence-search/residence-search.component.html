@@ -14,7 +14,7 @@
       <!-- Barre de recherche principale -->
       <div class="max-w-6xl mx-auto">
         <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
-        <div class="flex flex-col lg:flex-row gap-4 items-center md:items-end">
+        <div class="flex flex-col lg:flex-row gap-4 items-center md:justify-center">
           <!-- Localisation -->
           <div>
             <label class="block text-md font-medium text-gray-900 mb-2">
@@ -82,10 +82,14 @@
           </div> 
 
         <!-- Boutons d'action -->
-          <div class="flex gap-3">
-            <button type="submit"
-              class="px-8 py-3 bg-[#b9f4a5] text-black rounded-lg hover:bg-[#b9f4a5] transition-colors">
-              Rechercher
+          <div>
+            <button (click)="connecting()" [disabled]="isLoading" type="submit" class="px-8 py-3 mt-8 bg-[#b9f4a5] text-black rounded-lg cursor-pointer hover:bg-[#a8e992] transition-colors">
+                <span [class.hiddenButton]="isLoading">Rechercher</span>
+                <div [class.hiddenButton]="!isLoading" class="dots-container-center">
+                    <div class="dot-center dot-center-1"></div>
+                    <div class="dot-center dot-center-2"></div>
+                    <div class="dot-center dot-center-3"></div>
+                </div>
             </button>
           </div>
         </div>

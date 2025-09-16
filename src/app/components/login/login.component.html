@@ -19,7 +19,14 @@
                     formControlName="password" 
                     class="rounded border border-gray-200 text-sm w-full font-base leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0">
             </div>
-            <button type="submit" class="bg-[#E88A68] w-max m-auto px-6 py-2 rounded cursor-pointer hover:bg-[#d86e47] text-white text-sm font-base">Valider</button>
+            <button (click)="connecting()" [disabled]="isLoading" type="submit" class="bg-[#E88A68] w-max m-auto px-6 py-2 rounded cursor-pointer hover:bg-[#d86e47] text-white text-sm font-base">
+                <span [class.hiddenButton]="isLoading">Valider</span>
+                <div [class.hiddenButton]="!isLoading" class="dots-container-center">
+                    <div class="dot-center dot-center-1"></div>
+                    <div class="dot-center dot-center-2"></div>
+                    <div class="dot-center dot-center-3"></div>
+                </div>
+            </button>
         </form>
         <div class="text-sm text-center mt-[1.4rem]">Vous n'avez pas de compte?
             <a routerLink="/app-register" class="text-sm text-[#E88A68] hover:text-[#df724b]">Inscrivez-vous!</a>

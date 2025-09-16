@@ -23,7 +23,7 @@
                         </div>
 
                         <!-- Section Badge -->
-                         <!-- @if (isOwner | async) { -->
+                         <!-- @if ( isOwner | async) { -->
                         <div class="mt-12">
                             <h3 class="text-lg font-semibold text-gray-900 mb-4">Voir mes résidences</h3>
                             <!-- Bouton voir ses résidences -->
@@ -103,17 +103,19 @@
                                 id="password" 
                                 name="password" 
                                 placeholder="Votre nouveau mot de passe "
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 bg-white"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"
                             />
                         </div>
 
                         <!-- Boutons d'action -->
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <button 
-                                type="submit" 
-                                class="flex-1 bg-[#E88A68] text-white py-3 px-6 rounded-md font-medium hover:bg-blue-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-                            >
-                                Modifier le profil
+                            <button (click)="submitting()" [disabled]="isLoading" type="submit" class="flex-1 bg-[#E88A68] text-white py-3 px-6 cursor-pointer rounded-md font-medium hover:bg-[#d86e47] transition-colors duration-200">
+                                <span [class.hiddenButton]="isLoading">Modifier le profil</span>
+                                <div [class.hiddenButton]="!isLoading" class="dots-container-center">
+                                    <div class="dot-center dot-center-1"></div>
+                                    <div class="dot-center dot-center-2"></div>
+                                    <div class="dot-center dot-center-3"></div>
+                                </div>
                             </button>
                         </div>
                     </div>

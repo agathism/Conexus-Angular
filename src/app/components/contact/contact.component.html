@@ -37,7 +37,14 @@
                     class="rounded border border-gray-200 text-sm w-full font-base leading-[18px] text-black tracking-[0px] appearance-none block h-11 m-0 p-[11px] focus:ring-2 ring-offset-2 ring-gray-900 outline-0">
                     </textarea>
             </div>
-            <button type="submit" class="bg-[#df724b] w-max m-auto px-6 py-2 rounded cursor-pointer text-white text-sm font-base">Envoyer</button>
+            <button (click)="submitting()" [disabled]="isLoading" type="submit" class="bg-[#df724b] w-max m-auto px-6 py-2 rounded cursor-pointer text-white text-sm font-base">
+                <span [class.hiddenButton]="isLoading">Envoyer</span>
+                <div [class.hiddenButton]="!isLoading" class="dots-container-center">
+                    <div class="dot-center dot-center-1"></div>
+                    <div class="dot-center dot-center-2"></div>
+                    <div class="dot-center dot-center-3"></div>
+                </div>
+            </button>
         </form>
     </div>
 </div>
