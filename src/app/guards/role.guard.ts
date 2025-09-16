@@ -20,13 +20,6 @@ export const roleGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  // 🔍 LOGS DE DEBUG - À SUPPRIMER APRÈS
-  console.log('=== ROLE GUARD DEBUG ===');
-  console.log('User roles:', currentUser.roles);
-  console.log('Is owner (fonction):', userService.isOwner());
-  console.log('Route data:', route.data);
-  console.log('========================');
-
   // Vérifier si l'utilisateur est owner (accès à tout)
   const isOwner = userService.isOwner();
   if (isOwner) {

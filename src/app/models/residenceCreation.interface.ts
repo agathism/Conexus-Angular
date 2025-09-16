@@ -6,4 +6,5 @@ export default interface ResidenceCreation {
     monthlyPrice: number
     surface: number
     city: string
+    imageUrl: string
 }

@@ -14,6 +14,7 @@ export class ResidencesService{
   private userService = inject(UserService);
   private apiUrl = 'http://127.0.0.1:8000/api/residences';
   private myResidenceUrl = 'http://127.0.0.1:8000/api/my-residences'
+  private createUrl = 'http://127.0.0.1:8000/api/residence-create'
 
   // Headers par défaut
   private readonly defaultHeaders = {
@@ -58,9 +59,12 @@ export class ResidencesService{
 
   
   // Créer une nouvelle résidence
-  createResidence(residenceData: Partial<ResidenceCreation>): Observable<ResidenceCreation> {
-    return this.httpClient.post<ResidenceCreation>(this.apiUrl, residenceData, {
-      headers: this.userService.getAuthHeaders()
+  createResidence(residenceData: ResidenceCreation): Observable<ResidenceCreation> {
+    return this.httpClient.post<ResidenceCreation>(this.createUrl, residenceData, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      }
     })
   }
 

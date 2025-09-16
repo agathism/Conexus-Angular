@@ -4,3 +4,23 @@
 body{
     font-family: "TASA Orbiter", sans-serif;
 }
+
+.line {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.line-top-bottom {
+  transition: stroke-dasharray 200ms cubic-bezier(0.4, 0, 0.2, 1), 
+              stroke-dashoffset 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hamburger-default {
+  stroke-dasharray: 12 63;
+  stroke-dashoffset: 0;
+}
+
+.hamburger-active {
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: -32.42;
+}

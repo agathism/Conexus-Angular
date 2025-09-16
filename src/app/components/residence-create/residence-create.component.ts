@@ -3,7 +3,6 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ResidencesService } from '../../services/residences/residences.service';
 import { Router } from '@angular/router';
-import Residence from '../../models/residence.interface';
 
 @Component({
   selector: 'app-residence-create',
@@ -16,47 +15,22 @@ export class ResidenceCreateComponent {
   residenceForm: FormGroup;
   errorMessage = '';
   successMessage = '';
-  isSubmitting = false;
-  private router = inject(Router);
 
+  private router = inject(Router);
   private formBuilder = inject(FormBuilder);
   private residenceService = inject(ResidencesService);
 
-  constructor() {
+  constructor(){
       this.residenceForm = this.formBuilder.group({
-      title: ['', [
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(100)
-      ]],
-      description: ['', [
-        Validators.required,
-        Validators.minLength(20),
-        Validators.maxLength(500)
-      ]],
-      address: ['', [
-        Validators.required,
-        Validators.minLength(10)
-      ]],
-      city: ['', [
-        Validators.required
-      ]],
-      amountShowers: ['', [
-        Validators.required,
-        Validators.min(1),
-        Validators.max(5)
-      ]],
-      surface: ['', [
-        Validators.required,
-        Validators.min(20),
-        Validators.max(500)
-      ]],
-      monthlyPrice: ['', [
-        Validators.required,
-        Validators.min(300),
-        Validators.max(5000)
-      ]]
-    });
+      title: ['', [ Validators.required ]],
+      description: ['', [ Validators.required ]],
+      address: ['', [ Validators.required ]],
+      city: ['', [ Validators.required ]],
+      amountShowers: ['', [ Validators.required ]],
+      surface: ['', [ Validators.required ]],
+      monthlyPrice: ['', [ Validators.required ]],
+      imageUrl: ['', [ Validators.required ]]
+      });
     }
 
     // Méthode appelée lors de la soumission du formulaire
@@ -71,6 +45,7 @@ export class ResidenceCreateComponent {
         monthlyPrice: this.residenceForm.value.monthlyPrice,
         surface: this.residenceForm.value.surface,
         city: this.residenceForm.value.city,
+        imageUrl: this.residenceForm.value.imageUrl
       };
 
       // Appel du service pour la création de l'utilisateur
@@ -97,5 +72,4 @@ export class ResidenceCreateComponent {
       this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires.';
     }
   }
-
 }

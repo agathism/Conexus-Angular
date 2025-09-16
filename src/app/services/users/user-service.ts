@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import User  from '../../models/user.interface';
-import { BehaviorSubject, catchError, map, Observable, switchMap, tap, throwError } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, switchMap, tap, throwError } from 'rxjs';
 import UserRegistration from '../../models/userRegistration.interface';
 
 @Injectable({
@@ -18,8 +18,8 @@ export class UserService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   
   // Observables publics
-  isLoggedIn$ = this.loggedIn.asObservable();
-  currentUser$ = this.currentUserSubject.asObservable();
+  isLoggedIn = this.loggedIn.asObservable();
+  currentUser = this.currentUserSubject.asObservable();
   
   constructor(private httpClient: HttpClient) {
     this.initializeAuth();
@@ -172,60 +172,14 @@ export class UserService {
     return user?.roles || [];
   }
 
-  // Observable pour suivre les changements de rôles
-  get currentUserRoles$(): Observable<string[]> {
-    return this.currentUser$.pipe(
-      map(user => user?.roles || [])
-    );
-  }
-
   // Vérifie si l'utilisateur a un rôle spécifique
   hasRole(role: string): boolean {
     const userRoles = this.getUserRoles();
     return userRoles.includes(role);
   }
 
-  // Vérifie si l'utilisateur a tous les rôles spécifiés
-  hasAllRoles(roles: string[]): boolean {
-    const userRoles = this.getUserRoles();
-    return roles.every(role => userRoles.includes(role));
-  }
-
-  // Vérifie si l'utilisateur a au moins un des rôles spécifiés
-  hasAnyRole(roles: string[]): boolean {
-    const userRoles = this.getUserRoles();
-    return userRoles.some(userRole => roles.includes(userRole));
-  }
-
-  // Récupère le rôle principal (premier dans la liste ou le plus élevé)
-  getPrimaryRole(): string | null {
-    const roles = this.getUserRoles();
-    if (roles.length === 0) return null;
-    
-    // Ordre de priorité des rôles (du plus élevé au plus bas)
-    const rolePriority = ['ROLE_ADMIN', 'ROLE_OWNER', 'ROLE_USER'];
-    
-    for (const priority of rolePriority) {
-      if (roles.includes(priority)) {
-        return priority;
-      }
-    }
-    
-    return roles[0]; // Retourne le premier si aucun n'est dans la priorité
-  }
-
   // Vérifie si l'utilisateur est owner
   isOwner(): boolean {
     return this.hasRole('ROLE_OWNER');
-  }
-
-  // Vérifie si l'utilisateur est user
-  isUser(): boolean {
-    return this.hasRole('ROLE_USER');
-  }
-
-  // Vérifie si l'utilisateur est admin
-  isAdmin(): boolean {
-    return this.hasRole('ROLE_ADMIN');
   }
 }

@@ -1,108 +1,109 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MessagesService } from '../../services/messages/messages.service';
 import Message from '../../models/message.interface';
-import UserMessages from '../../models/userMessages.interface';
+import { DatePipe } from '@angular/common';
+import ConversationSummary from '../../models/conversationSummary.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/users/user-service';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.css'
 })
 export class ChatComponent implements OnInit{
   private messagesService = inject(MessagesService);
-  
+  private authService = inject(UserService);
+  messageForm: FormGroup;
+  private formBuilder = inject(FormBuilder);
+
   // Propriétés simplifiées
+  conversations: ConversationSummary[] = [];
   messages: Message[] = [];
   isLoading = false;
+  selectedConversation: any = null;
   errorMessage = '';
+  currentUser: any;
 
-  ngOnInit(): void {
-    this.loadMyMessages();
-  }
-
-  // Je charge tous mes messages
-  loadMyMessages(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-    
-    this.messagesService.getMyMessages().subscribe({
-      next: (messages) => {
-        this.messages = messages;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.handleError('Erreur lors du chargement des messages', err);
-      }
-    });
-  }
-
-  // Quand j'envoie un message
-  sendMessage(receiverId: string, content: string): void {
-    if (!content.trim()) {
-      this.errorMessage = 'Le message ne peut pas être vide';
-      return;
+  // Pour envoyer un message il ne faut que le contenu. Toutes les autres prorpriétés sont pré-remplies
+  constructor() {
+      this.messageForm = this.formBuilder.group({
+        content: ['', [Validators.required]]
+      });
     }
+  
+  ngOnInit(): void {
+    console.log('🚀 Initialisation du component conversations');
+    this.currentUser = this.authService.getCurrentUserId();
+    this.loadConversations();
+  }
 
-    this.messagesService.sendMessage(receiverId, content).subscribe({
-      next: (message) => {
-        // J'ajoute directement le nouveau message (plus efficace que recharger tout)
-        this.messages.unshift(message);
-        console.log('Message envoyé:', message);
+  // Je charge une conversation spécifique sur la page de présentation
+  loadConversations(): void {
+    console.log('🔄 Début du chargement des conversations...');
+    this.isLoading = true;
+    this.errorMessage = '';
+
+    this.messagesService.getConversations().subscribe({
+      next: (conversations) => {
+        console.log('✅ Conversations reçues dans le component:', conversations);
+        console.log('📊 Nombre de conversations:', conversations.length);
+        this.conversations = conversations;
+        this.isLoading = false;
+
+        if (conversations.length === 0) {
+          console.log('ℹ️ Aucune conversation trouvée');
+        }
       },
       error: (err) => {
-        this.handleError('Erreur lors de l\'envoi', err);
+        console.error('❌ Erreur lors du chargement:', err);
+        this.handleError('Erreur lors du chargement des conversations', err);
       }
     });
   }
 
-  // Je charge mes messages envoyés seulement
-  loadSentMessages(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
+  /**
+   * Sélectionne une conversation et charge ses messages
+   */
+  selectConversation(conversation: any) {
+    this.selectedConversation = conversation;
+    this.loadMessages(conversation.otherUser.id);
+  }
 
-    this.messagesService.getMySentMessages().subscribe({
+  loadMessages(otherUserId: number): void {
+    this.messagesService.getMessages().subscribe({
       next: (messages) => {
         this.messages = messages;
-        this.isLoading = false;
+        // Scroll vers le bas après chargement
+        setTimeout(() => this.scrollToBottom(), 100);
       },
-      error: (err) => {
-        this.handleError('Erreur lors du chargement des messages envoyés', err);
+      error: (error) => {
+        console.error('Erreur lors du chargement des messages:', error);
       }
     });
   }
-
-  // Je charge mes messages reçus seulement
-  loadReceivedMessages(): void {
-    this.isLoading = true;
-    this.errorMessage = '';
-
-    this.messagesService.getMyReceivedMessages().subscribe({
-      next: (messages) => {
-        this.messages = messages;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.handleError('Erreur lors du chargement des messages reçus', err);
-      }
-    });
+  
+  // Ferme la conversation (utile sur mobile)
+  closeConversation() {
+    this.selectedConversation = null;
+    
   }
 
-  // Je charge une conversation spécifique
-  loadConversation(otherUserId: string): void {
-    this.isLoading = true;
-    this.errorMessage = '';
+  
+  // Scroll automatique vers le bas des messages
+  private scrollToBottom() {
+    const container = document.querySelector('#messagesContainer');
+    if (container) {
+      container.scrollTop = container.scrollHeight;
+    }
+  }
 
-    this.messagesService.getConversation(otherUserId).subscribe({
-      next: (messages) => {
-        this.messages = messages;
-        this.isLoading = false;
-      },
-      error: (err) => {
-        this.handleError('Erreur lors du chargement de la conversation', err);
-      }
-    });
+  // Gestion du responsive - masquer la liste sur mobile quand conversation active
+  get showConversationList(): boolean {
+    // Sur mobile, masquer la liste si une conversation est sélectionnée
+    return window.innerWidth >= 768 || !this.selectedConversation;
   }
 
   // Gestion d'erreur centralisée (il me permet d'éviter la duplication)

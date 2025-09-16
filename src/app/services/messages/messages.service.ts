@@ -1,6 +1,7 @@
 import { Injectable} from '@angular/core';
 import Message from '../../models/message.interface';
-import { Observable, throwError } from 'rxjs';
+import ConversationSummary from '../../models/conversationSummary.interface';
+import { catchError, Observable, tap, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { UserService } from '../users/user-service';
 
@@ -12,12 +13,12 @@ export class MessagesService{
 
   constructor(
     private httpClient: HttpClient,
-    private userService: UserService  // Injection de votre service User
+    private userService: UserService  // Injection du service User
   ) {}
 
   // Récupère les headers avec le token d'authentification
   private getAuthHeaders(): HttpHeaders {
-    const token = this.userService.getToken(); // Votre méthode existante
+    const token = this.userService.getToken(); 
     
     return new HttpHeaders({
       'Content-Type': 'application/json',
@@ -35,73 +36,68 @@ export class MessagesService{
     return true;
   }
 
-  // Tous mes messages
-  getMyMessages(): Observable<Message[]> {
-    if (!this.checkAuthentication()) {
-      return throwError(() => new Error('Non authentifié'));
-    }
-
-    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages`, {
-      headers: this.userService.getAuthHeaders()
-    });
-  }
-
-  // Messages que j'ai envoyés
-  getMySentMessages(): Observable<Message[]> {
-    if (!this.checkAuthentication()) {
-      return throwError(() => new Error('Non authentifié'));
-    }
-
-    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/sent`, {
-      headers: this.userService.getAuthHeaders()
-    });
-  }
-
-  // Messages que j'ai reçus
-  getMyReceivedMessages(): Observable<Message[]> {
-    if (!this.checkAuthentication()) {
-      return throwError(() => new Error('Non authentifié'));
-    }
-
-    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/received`, {
-      headers: this.userService.getAuthHeaders()
-    });
-  }
-
   // Conversation avec un utilisateur spécifique
-  getConversation(otherUserId: string): Observable<Message[]> {
+  getConversations(): Observable<ConversationSummary[]> {
+    console.log('🔄 getConversations - Début');
+    
     if (!this.checkAuthentication()) {
+      console.log('❌ Échec authentification');
+      return throwError(() => new Error('Non authentifié'));
+    }
+    
+    return this.httpClient.get<ConversationSummary[]>(`${this.apiUrl}/my-conversations`, { 
+      headers: this.userService.getAuthHeaders() 
+    }).pipe(
+      tap(conversations => {
+        console.log('✅ Réponse API brute:', conversations);
+        console.log('✅ Type de la réponse:', typeof conversations);
+        console.log('✅ Est un array:', Array.isArray(conversations));
+        console.log('✅ Nombre d\'éléments:', conversations ? conversations.length : 'undefined');
+      }),
+      catchError(error => {
+        console.error('❌ Erreur dans getConversations:', error);
+        return this.handleError(error);
+      })
+    );
+  }
+
+  // Tous les messages avec un utilisateur spécifique
+  getMessages(): Observable<Message[]> {
+    console.log('🔄 getMessages - Début');
+    
+    if (!this.checkAuthentication()) {
+      console.log('❌ Échec authentification');
       return throwError(() => new Error('Non authentifié'));
     }
 
-    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/conversation/${otherUserId}`, {
-      headers: this.userService.getAuthHeaders()
-    });
+    return this.httpClient.get<Message[]>(`${this.apiUrl}/my-messages/{otherUserId}`, { 
+      headers: this.userService.getAuthHeaders() 
+    }).pipe(
+      tap(conversations => {
+        console.log('✅ Réponse API brute:', conversations);
+        console.log('✅ Type de la réponse:', typeof conversations);
+        console.log('✅ Est un array:', Array.isArray(conversations));
+        console.log('✅ Nombre d\'éléments:', conversations ? conversations.length : 'undefined');
+      }),
+      catchError(error => {
+        console.error('❌ Erreur dans getConversations:', error);
+        return this.handleError(error);
+      })
+    );
   }
 
   // Envoyer un nouveau message
-  sendMessage(receiverId: string, content: string): Observable<Message> {
+  sendMessage(otherUserId: string, content: string): Observable<Message> {
     if (!this.checkAuthentication()) {
       return throwError(() => new Error('Non authentifié'));
     }
 
     const messageData = {
-      receiver: `/api/users/${receiverId}`,
+      receiver: `/api/users/${otherUserId}`,
       content: content
     };
     
-    return this.httpClient.post<Message>(`${this.apiUrl}/messages`, messageData, {
-      headers: this.userService.getAuthHeaders()
-    });
-  }
-
-  // Nombre de messages non lus
-  getUnreadCount(): Observable<{unreadCount: number}> {
-    if (!this.checkAuthentication()) {
-      return throwError(() => new Error('Non authentifié'));
-    }
-
-    return this.httpClient.get<{unreadCount: number}>(`${this.apiUrl}/my-messages/unread-count`, {
+    return this.httpClient.post<Message>(`${this.apiUrl}/my-messages/{otherUserId}`, messageData, {
       headers: this.userService.getAuthHeaders()
     });
   }

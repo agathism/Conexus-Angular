@@ -1,49 +1,112 @@
-<nav>
-    <div class="flex justify-between items-center md:justify-between">
+<nav class="bg-white px-4 py-3">
+    <div class="flex justify-between items-center">
+        <!-- Logo -->
         <a routerLink="/app-home">
             <img src="image/logo-transparent-png.png" class="h-12 w-38 md:h-16 md:w-50" alt="Logo">
         </a>
-        <div class="max-sm:mr-5 md:mr-7"> 
-            <ul class="flex space-x-5">
-                <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
-                    <a routerLink="/app-residence-search">Trouver sa résidence</a>
-                </li>
-                <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
-                    <a routerLink="/app-residence-create">Publier une annonce</a>
-                </li>
-                <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
-                    <a routerLink="/app-contact">Contact</a>
-                </li>
-                @if (isLoggedIn$ | async) {
-                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]"> 
-                    <a routerLink="/app-chat">Mes conversations</a>
-                    </li>
-                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]"> 
-                    <a routerLink="/app-reservations">Mes réservations</a>
-                    </li>
-                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
-                    <a routerLink="/app-profile">Mon profil</a>
-                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68] hover:cursor-pointer">
-                    <a (click)="logout()" class="inline-block text-sm md:text-base w-28 h-6 rounded-2xl bg-[#E88A68] text-white relative overflow-hidden group z-10 hover:text-white duration-1000 leading-6 text-center">
-                        <span class="absolute bg-[#dc6e47] w-36 h-36 rounded-sm group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
-                        <span class="absolute bg-[#df724b] w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
+        
+        <!-- Menu Desktop (caché sur mobile/tablette) -->
+        <div class="hidden lg:flex items-center space-x-6">
+            <a routerLink="/app-residence-search" class="text-base hover:text-[#E88A68] transition-colors">
+                Trouver sa résidence
+            </a>
+            <a routerLink="/app-residence-create" class="text-base hover:text-[#E88A68] transition-colors">
+                Publier une annonce
+            </a>
+            <a routerLink="/app-contact" class="text-base hover:text-[#E88A68] transition-colors">
+                Contact
+            </a>
+            
+            @if (isLoggedIn | async) {
+                <a routerLink="/app-chat" class="text-base hover:text-[#E88A68] transition-colors">
+                    Mes conversations
+                </a>
+                <a routerLink="/app-reservations" class="text-base hover:text-[#E88A68] transition-colors">
+                    Mes réservations
+                </a>
+                <a routerLink="/app-profile" class="text-base hover:text-[#E88A68] transition-colors">
+                    Mon profil
+                </a>
+                <button (click)="logout()" 
+                        class="bg-[#E88A68] text-white px-4 py-2 rounded-lg hover:bg-[#dc6e47] transition-colors">
                     Déconnexion
-                    </a>
-                    </li>
-                } @else {
-                    <li class="max-sm:hidden sm:block text-base hover:text-[#E88A68]">
-                    <a routerLink="/app-login">Se connecter</a>
-                    </li>
-                    <li class="hover:text-[#E88A68] hover:cursor-pointer">
-                    <a routerLink="/app-register" class="inline-block text-sm md:text-base w-24 h-6 rounded-2xl bg-[#E88A68] text-white relative overflow-hidden group z-10 hover:text-white duration-1000 leading-6 text-center">
-                        <span class="absolute bg-[#dc6e47] w-36 h-36 rounded-sm group-hover:scale-100 scale-0 -z-10 -left-2 -top-10 group-hover:duration-500 duration-700 origin-center transform transition-all"></span>
-                        <span class="absolute bg-[#df724b] w-36 h-36 -left-2 -top-10 rounded-full group-hover:scale-100 scale-0 -z-10 group-hover:duration-700 duration-500 origin-center transform transition-all"></span>
-                        S'inscrire
-                    </a>
-                    </li>
+                </button>
+            } @else {
+                <a routerLink="/app-login" class="text-base hover:text-[#E88A68] transition-colors">
+                    Se connecter
+                </a>
+                <a routerLink="/app-register" 
+                   class="bg-[#E88A68] text-white px-4 py-2 rounded-lg hover:bg-[#dc6e47] transition-colors">
+                    S'inscrire
+                </a>
             }
-            </ul>
+        </div>
+
+        <!-- Menu Burger (visible sur mobile/tablette uniquement) -->
+        <div class="lg:hidden relative">
+            <label class="hamburger cursor-pointer" (click)="toggleMenu()">
+                <input type="checkbox" class="hidden">
+                <svg viewBox="0 0 32 32" 
+                     [class]="isMenuOpen ? 'h-8 w-8 transition-transform duration-200 rotate-45' : 'h-8 w-8 transition-transform duration-200'">
+                    <path class="line line-top-bottom fill-none stroke-current stroke-2 transition-all duration-200" 
+                          style="stroke-linecap: round; stroke-linejoin: round;"
+                          [style.stroke-dasharray]="isMenuOpen ? '20 300' : '12 63'"
+                          [style.stroke-dashoffset]="isMenuOpen ? '-32.42' : '0'"
+                          d="M27 10 13 10C10.8 10 9 8.2 9 6 9 3.5 10.8 2 13 2 15.2 2 17 3.8 17 6L17 26C17 28.2 18.8 30 21 30 23.2 30 25 28.2 25 26 25 23.8 23.2 22 21 22L7 22">
+                    </path>
+                    <path class="line fill-none stroke-current stroke-2" 
+                          style="stroke-linecap: round; stroke-linejoin: round;"
+                          d="M7 16 27 16"></path>
+                </svg>
+            </label>
+
+            <!-- Menu mobile -->
+            <div [class]="isMenuOpen ? 'absolute top-full right-0 w-screen bg-white border-t shadow-md transition-all duration-300 ease-in-out z-50 translate-y-0 opacity-100' : 'absolute top-full right-0 w-screen bg-white border-t shadow-md transition-all duration-300 ease-in-out z-50 -translate-y-full opacity-0 invisible'">
+                <ul class="flex flex-col space-y-3 p-4">
+                    <li class="text-base hover:text-[#E88A68]">
+                        <a routerLink="/app-residence-search" (click)="closeMenu()">Trouver sa résidence</a>
+                    </li>
+                    <li class="text-base hover:text-[#E88A68]">
+                        <a routerLink="/app-residence-create" (click)="closeMenu()">Publier une annonce</a>
+                    </li>
+                    <li class="text-base hover:text-[#E88A68]">
+                        <a routerLink="/app-contact" (click)="closeMenu()">Contact</a>
+                    </li>
+                    @if (isLoggedIn | async) {
+                        <li class="text-base hover:text-[#E88A68]">
+                            <a routerLink="/app-chat" (click)="closeMenu()">Mes conversations</a>
+                        </li>
+                        <li class="text-base hover:text-[#E88A68]">
+                            <a routerLink="/app-reservations" (click)="closeMenu()">Mes réservations</a>
+                        </li>
+                        <li class="text-base hover:text-[#E88A68]">
+                            <a routerLink="/app-profile" (click)="closeMenu()">Mon profil</a>
+                        </li>
+                        <li class="text-base hover:text-[#E88A68] hover:cursor-pointer">
+                            <button (click)="logout()" 
+                                    class="block w-full text-center bg-[#E88A68] text-white px-4 py-2 rounded-lg hover:bg-[#dc6e47] transition-colors">
+                                Déconnexion
+                            </button>
+                        </li>
+                    } @else {
+                        <li class="text-base hover:text-[#E88A68]">
+                            <a routerLink="/app-login" (click)="closeMenu()">Se connecter</a>
+                        </li>
+                        <li class="hover:text-[#E88A68] hover:cursor-pointer">
+                            <a routerLink="/app-register" (click)="closeMenu()"
+                               class="block w-full text-center bg-[#E88A68] text-white px-4 py-2 rounded-lg hover:bg-[#dc6e47] transition-colors">
+                                S'inscrire
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
+
+    <!-- Overlay pour fermer le menu en cliquant ailleurs -->
+    @if (isMenuOpen) {
+        <div class="fixed inset-0 z-40 lg:hidden" (click)="closeMenu()"></div>
+    }
 </nav>
 

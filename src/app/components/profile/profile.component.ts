@@ -25,26 +25,26 @@ export class ProfileComponent {
   private formBuilder = inject(FormBuilder);
   isLoading = false;
   successMessage = '';
-
+  // isOwner: typeof this.userService.isOwner; 
 
   constructor() {
-      // Initialisation du formulaire avec les champs et leurs validations
-      this.modifyForm = this.formBuilder.group({
-        name: [''],
-        email: ['', [Validators.email]],
-        password: ['', [Validators.minLength(6)]], // Validation de la longueur du mot de passe
-        userGenre: [''],
-        birthDate: [''],
-        profilePicture: ['']
-      });
-    }
+    // Initialisation du formulaire avec les champs et leurs validations
+    this.modifyForm = this.formBuilder.group({
+      name: [''],
+      email: ['', [Validators.email]],
+      password: ['', [Validators.minLength(6)]], // Validation de la longueur du mot de passe
+      userGenre: [''],
+      birthDate: [''],
+      profilePicture: ['']
+    });
+  }
 
   ngOnInit() {
     console.log('🔍 Initialisation du composant profile');
     console.log('📦 Token dans localStorage:', this.userService.getToken());
     console.log('👤 User dans localStorage:', this.userService.getUser());
     
-    this.userService.currentUser$.subscribe(user => {
+    this.userService.currentUser.subscribe(user => {
       console.log('🔄 Changement d\'état utilisateur:', user);
       
       if (user) {

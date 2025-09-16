@@ -12,15 +12,24 @@ import { AsyncPipe } from '@angular/common';
 })
 export class NavbarComponent {
   private router = inject(Router);
-
-  isLoggedIn$: typeof this.userService.isLoggedIn$;
+  isMenuOpen = false;
+  isLoggedIn: typeof this.userService.isLoggedIn;
 
   constructor(private userService: UserService) {
-    this.isLoggedIn$ = this.userService.isLoggedIn$;
+    this.isLoggedIn = this.userService.isLoggedIn;
   }
 
   logout() {
     this.userService.logout();
     this.router.navigate(['/app-home']);
+    this.closeMenu();
+  }
+
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  closeMenu() {
+    this.isMenuOpen = false;
   }
 }
