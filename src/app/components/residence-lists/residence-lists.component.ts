@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
   templateUrl: './residence-lists.component.html',
   styleUrl: './residence-lists.component.css'
 })
-export class ResidenceListsComponent implements OnInit{
+export class ResidenceListsComponent implements OnInit {
   private residencesService = inject(ResidencesService);
   private router = inject(Router);
   // Liste des résidences

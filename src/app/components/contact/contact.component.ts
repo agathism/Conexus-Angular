@@ -43,8 +43,6 @@ export class ContactComponent {
         subject: this.contactForm.value.subject,
         message: this.contactForm.value.message
       };
-
-      console.log('📤 Données envoyées:', contactData); // DEBUG
       
       this.contactService.sendContact(contactData).subscribe({
         next: (response: any) => {
