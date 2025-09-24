@@ -8,7 +8,7 @@ import { RoomsService } from '../../services/rooms/rooms.service';
 import Room from '../../models/room.interface';
 import { ConveniencesService } from '../../services/conveniences/conveniences.service';
 import Convenience from '../../models/convenience.interface';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { RulesService } from '../../services/rules/rules.service';
 import Rule from '../../models/rule.interface';
 import { ResidenceImagesService } from '../../services/residenceImages/residence-images.service';
@@ -17,7 +17,7 @@ import ResidenceImage from '../../models/residenceImage.interface';
 @Component({
   selector: 'app-residence-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './residence-detail.component.html',
   styleUrl: './residence-detail.component.css'
 })

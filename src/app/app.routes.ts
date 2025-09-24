@@ -14,11 +14,13 @@ import { ResidenceListsComponent } from './components/residence-lists/residence-
 import { authGuard } from './guards/auth.guard';
 import { roleGuard } from './guards/role.guard';
 import { UnauthorizedComponent } from './components/unauthorized/unauthorized.component';
+import { MakeReservationComponent } from './components/make-reservation/make-reservation.component';
 
 export const routes: Routes = [
     { path: 'app-home', component: HomeComponent },
     { path: 'app-login', component: LoginComponent },
     { path: 'app-register', component: RegisterComponent },
+    { path: 'app-make-reservation', component: MakeReservationComponent },
     { path: 'app-contact', component: ContactComponent, canActivate: [authGuard] },
     { path: 'app-chat', component: ChatComponent, canActivate: [authGuard] },
     { path: 'app-residence-detail/:id', component: ResidenceDetailComponent },
