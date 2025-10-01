@@ -1,6 +1,6 @@
 import { inject, Injectable} from '@angular/core';
 import Residence from '../../models/residence.interface';
-import { catchError, map, Observable, throwError } from 'rxjs';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import SearchFilters from '../../models/searchFilters.interface';
 import { UserService } from '../users/user-service';
@@ -60,13 +60,21 @@ export class ResidencesService{
   
   // Créer une nouvelle résidence
   createResidence(residenceData: ResidenceCreation): Observable<ResidenceCreation> {
+    console.log("📤 Envoi des données de résidence :", residenceData);
+
     return this.httpClient.post<ResidenceCreation>(`${this.createUrl}`, residenceData, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
+      headers: this.userService.getAuthHeaders()
+    }).pipe(
+      tap((response) => {
+        console.log("✅ Résidence créée avec succès :", response);
+      }),
+      catchError((error) => {
+        console.error("❌ Erreur lors de la création de la résidence :", error);
+        throw error;
+      })
+    );
   }
+
 
   // Modifier une résidence existante
   updateResidence(id: number, residenceData: Partial<Residence>): Observable<Residence> {

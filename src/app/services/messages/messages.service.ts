@@ -4,6 +4,7 @@ import Conversation from '../../models/conversation.interface';
 import { catchError, Observable, of, tap, throwError} from 'rxjs';
 import { HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { UserService } from '../users/user-service';
+import SendMessage from '../../models/sendMessage.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -82,19 +83,50 @@ export class MessagesService{
   }
 
   // Envoyer un nouveau message
-  sendMessage(otherUserId: string, content: string): Observable<Message> {
+  sendMessage(content: string, otherUserId: number): Observable<SendMessage> {
+    console.log('📤 sendMessage appelé avec:', { content, otherUserId });
+    
     if (!this.checkAuthentication()) {
+      console.error('❌ Échec de l\'authentification');
       return throwError(() => new Error('Non authentifié'));
+    }
+    console.log('✅ Authentification vérifiée');
+
+    // Récupérer l'ID de l'utilisateur connecté
+    const currentUserId = this.userService.getCurrentUserId();
+    console.log('👤 ID utilisateur actuel:', currentUserId);
+    
+    if (!currentUserId) {
+      console.error('❌ ID utilisateur introuvable');
+      return throwError(() => new Error('ID utilisateur introuvable'));
     }
 
     const messageData = {
-      receiver: `/api/users/${otherUserId}`,
-      content: content
+      content: content,
+      otherUserId: otherUserId
     };
+
+    console.log('📝 Données du message à envoyer:', messageData);
+
+    const url = `${this.apiUrl}/send-messages/${otherUserId}`;
+    console.log('🌐 URL de l\'API:', url);
     
-    return this.httpClient.post<Message>(`${this.apiUrl}/my-messages/{otherUserId}`, messageData, {
-      headers: this.userService.getAuthHeaders()
-    });
+    const headers = this.userService.getAuthHeaders();
+    console.log('🔐 Headers d\'authentification:', headers);
+
+    console.log('🚀 Envoi de la requête HTTP POST...');
+    return this.httpClient.post<SendMessage>(url, messageData, {
+      headers: headers
+    }).pipe(
+      tap({
+        next: (response) => {
+          console.log('✅ Message envoyé avec succès:', response);
+        },
+        error: (error) => {
+          console.error('❌ Erreur lors de l\'envoi du message:', error);
+        }
+      })
+    );
   }
 
   // Ma gestion d'erreurs personnalisée

@@ -31,6 +31,7 @@
                                 type="text" 
                                 id="title" 
                                 name="title" 
+                                formControlName="title"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"/>
                     </div>
                     <!-- Email -->
@@ -42,6 +43,7 @@
                                 type="text" 
                                 id="description" 
                                 name="description" 
+                                formControlName="description"
                                 rows="4"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white">
                             </textarea>
@@ -56,6 +58,7 @@
                                 type="text" 
                                 id="address" 
                                 name="address" 
+                                formControlName="address"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"/>
                         </div>
                         <!-- Ville -->
@@ -90,6 +93,7 @@
                                 type="number" 
                                 id="amountShowers" 
                                 name="amountShowers" 
+                                formControlName="amountShowers"
                                 min="1" 
                                 max="5"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"/>
@@ -102,6 +106,7 @@
                                 type="number" 
                                 id="surface" 
                                 name="surface" 
+                                formControlName="surface"
                                 min="90"
                                 max="250"
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"/>
@@ -114,6 +119,7 @@
                                 type="number" 
                                 id="monthlyPrice" 
                                 name="monthlyPrice"
+                                formControlName="monthlyPrice"
                                 min="500"
                                 max="1250" 
                                 class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm bg-white"/>
@@ -121,10 +127,15 @@
 
                         <!-- Boutons d'action -->
                         <div class="mt-8 flex flex-col sm:flex-row gap-4">
-                            <button 
+                            <button (click)="create()"
                                 type="submit" 
                                 class="flex-1 bg-[#E88A68] text-white py-3 px-6 rounded-md font-medium hover:bg-[#d86e47] cursor-pointer transition-colors duration-200 focus:outline-none focus:ring-offset-2">
-                                Créer la résidence
+                                <span [class.hiddenButton]="isLoading">Créer la résidence</span>
+                                <div [class.hiddenButton]="!isLoading" class="dots-container-center">
+                                    <div class="dot-center dot-center-1"></div>
+                                    <div class="dot-center dot-center-2"></div>
+                                    <div class="dot-center dot-center-3"></div>
+                                </div>
                             </button>
                         </div>
                     </div>

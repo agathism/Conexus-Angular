@@ -129,13 +129,4 @@ export class ResidenceSearchComponent implements OnInit {
   goToDetail(residence: Residence): void {
     this.router.navigate(['/app-residence-detail', residence.id]);
   }
-
-  // Getters pour faciliter l'accès aux contrôles du formulaire dans le template
-  get titleControl() { return this.searchForm.get('title'); }
-  get addressControl() { return this.searchForm.get('address'); }
-  get cityControl() { return this.searchForm.get('city'); }
-  get amountShowersControl() { return this.searchForm.get('amountShowers'); }
-  get monthlyPriceControl() { return this.searchForm.get('monthlyPrice'); }
-  get surfaceControl() { return this.searchForm.get('surface'); }
-  get createdAtControl() { return this.searchForm.get('createdAt'); }
 }

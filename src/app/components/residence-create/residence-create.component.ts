@@ -3,6 +3,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ResidencesService } from '../../services/residences/residences.service';
 import { Router } from '@angular/router';
+import Residence from '../../models/residence.interface';
 
 @Component({
   selector: 'app-residence-create',
@@ -15,6 +16,8 @@ export class ResidenceCreateComponent {
   residenceForm: FormGroup;
   errorMessage = '';
   successMessage = '';
+  isSubmitting = false;
+  isLoading = false;
 
   private router = inject(Router);
   private formBuilder = inject(FormBuilder);
@@ -33,7 +36,7 @@ export class ResidenceCreateComponent {
       });
     }
 
-    // Méthode appelée lors de la soumission du formulaire
+  // Méthode appelée lors de la soumission du formulaire
   monFormEstSoumis() {
     if (this.residenceForm.valid) {
       // Récupère toutes les données du formulaire
@@ -55,7 +58,12 @@ export class ResidenceCreateComponent {
           // Message de succès 
           this.errorMessage = 'Création réussie ! Vous pouvez visiter la page de la résidence.';
           // Rédirection vers la page de détail de la résidence crée
-          this.router.navigate(['/app-residence-detail']);
+          // Appel correct de la fonction avec la réponse
+          if (response && response.residence && response.residence.id) {
+            this.goToDetail(response);
+          } else {
+            console.warn("⚠️ Pas d'ID trouvé dans la réponse :", response);
+          }
         },
         error: (err: any) => {
           console.error('Erreur création:', err);
@@ -72,4 +80,16 @@ export class ResidenceCreateComponent {
       this.errorMessage = 'Veuillez remplir correctement tous les champs obligatoires.';
     }
   }
+
+  goToDetail(residence: Residence): void {
+      this.router.navigate(['/app-residence-detail', residence.id]);
+  }
+
+  create() {
+      this.isLoading = true;
+      setTimeout(() => {
+        this.isLoading = false;
+        console.log('Connexion réussi !');
+      }, 3000);
+    }
 }

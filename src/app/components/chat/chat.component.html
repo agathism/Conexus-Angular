@@ -135,23 +135,21 @@
 
       <!-- Zone d'envoi de message -->
       <div class="p-4 bg-white border-t border-gray-200 rounded-b-xl shadow-sm">
-        <form class="flex gap-3 items-center">
+        <form [formGroup]="messageForm" (ngSubmit)="myFormIsSubmitted()" class="flex gap-3 items-center">
           <input
             class="flex-1 px-4 py-3 border border-gray-300 rounded-full shadow-sm transition duration-200 ease-in-out focus:ring-2 focus:ring-conexus-green focus:border-transparent bg-gray-50 focus:bg-white"
             placeholder="Tapez votre message..."
             type="text"
             formControlName="content"
           />
-          <button 
-            type="submit" 
-            [disabled]="isLoading || messageForm.invalid"
-            class="bg-conexus-green text-white px-6 py-3 rounded-full hover:bg-green-600 transition-colors duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center min-w-[100px]"
+          <button (click)="send()" type="submit" [disabled]="isLoading"
+            class="bg-[#7ad45c] text-white px-6 py-3 cursor-pointer rounded-full hover:bg-[#62b647] transition-colors duration-200 flex items-center justify-center min-w-[100px]"
           >
-            <span [class.hidden]="isLoading">Envoyer</span>
-            <div [class.hidden]="!isLoading" class="flex space-x-1">
-              <div class="w-2 h-2 bg-white rounded-full animate-bounce"></div>
-              <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s"></div>
-              <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+            <span [class.hiddenButton]="isLoading">Envoyer</span>
+            <div [class.hiddenButton]="!isLoading" class="dots-container-center flex space-x-1">
+              <div class="dot-center dot-center-1"></div>
+              <div class="dot-center dot-center-2"></div>
+              <div class="dot-center dot-center-3"></div>
             </div>
           </button>
         </form>
